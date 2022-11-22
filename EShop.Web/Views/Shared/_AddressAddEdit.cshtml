@@ -1,0 +1,34 @@
+﻿<div class="row">
+    <div class="col-sm-8 col-sm-push-2">
+        @using (Html.BeginForm())
+        {
+            <div class="row">
+                <div class="col-sm-12">
+                    <label class="form-label">Address</label>
+                    <input class="form-control" required/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <label class="form-label">Address2</label>
+                    <input class="form-control" required/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-7">
+                    <label class="form-label">City</label>
+                    <input class="form-control" required/>
+                </div>
+                <div class="col-sm-5">
+                    <label class="form-label">Zip code</label>
+                    <input class="form-control" required/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
