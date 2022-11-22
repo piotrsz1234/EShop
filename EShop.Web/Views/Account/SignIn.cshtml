@@ -27,13 +27,14 @@
             <div class="col-md-10">
                 @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                <span><a href="../Account/ForgotPassword">Nie pamiętasz hasła?</a></span>
+                <div><a href="../Account/ForgotPassword">Nie pamiętasz hasła?</a></div>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Zaloguj się" class="btn btn-default" />
+                @*<input type="submit" value="Zaloguj się" class="btn btn-default" />*@
+                <button type="submit" class="btn btn-primary">Zaloguj się</button>
             </div>
             <div class="col-md-offset-2 col-md-10">
                 <span>Nie masz konta? <a href="../Account/SignUp">Zarejestruj się</a></span>
@@ -42,6 +43,7 @@
     </div>
 }
 
+<br/><br/>
 <div>
     @Html.ActionLink("Powrót", "Index")
 </div>

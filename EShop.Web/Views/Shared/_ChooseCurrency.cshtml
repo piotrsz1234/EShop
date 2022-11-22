@@ -1,0 +1,27 @@
+﻿<div class="row">
+    <div class="col-sm-8 col-sm-push-2">
+        @using (Html.BeginForm())
+        {
+            <div class="row">
+                <div class="col-sm-12">
+                    <label class="form-label">Waluta w której podawane są ceny produktów:</label>
+                    <select class="form-control">
+                        <option selected disabled>Wybierz walutę</option>
+                        <option value="1">Złotówki: zł</option>
+                        <option value="2">Dolary Amerykańskie: $</option>
+                        <option value="3">Euro: €</option>
+                        <option value="4">Jen: ¥</option>
+                        <option value="5">Rubel : ₽</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button class="btn btn-primary">Ustaw walutę</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<br/><br/>

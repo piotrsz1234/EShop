@@ -24,5 +24,10 @@ namespace EShop.Web.Controllers
             ViewBag.Message = "Your contact page.";
             return View();
         }
+
+        public ActionResult ChooseCurrency()
+        {
+            return View("_ChooseCurrency");
+        }
     }
 }

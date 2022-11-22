@@ -82,9 +82,7 @@
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.CheckBoxFor(model => model.terms)
-                    <div>
-                        Akceptuję regulamin sklepu*
-                    </div>
+                    <span>Akceptuję regulamin sklepu*</span>
                     @Html.ValidationMessageFor(model => model.terms, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -92,7 +90,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Zarejestruj się" class="btn btn-default" />
+@*                <input type="submit" value="Zarejestruj się" class="btn btn-default" />*@
+                <button type="submit" class="btn btn-primary">Zarejestruj się</button>
             </div>
             <div class="col-md-offset-2 col-md-10">
                 <span>Masz już konto? <a href="../Account/SignIn">Zaloguj się</a></span>
@@ -101,6 +100,7 @@
     </div>
 }
 
+<br/><br/>
 <div>
     @Html.ActionLink("Powrót", "Index")
 </div>
