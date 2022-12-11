@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using EShop.Core.Entities.Interfaces;
 
 namespace EShop.Core.Entities
@@ -18,5 +20,11 @@ namespace EShop.Core.Entities
         public long UserId { get; set; }
 
         public virtual User User { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
+
+        public Address()
+        {
+            Orders = new HashSet<Order>();
+        }
     }
 }

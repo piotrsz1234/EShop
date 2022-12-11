@@ -17,5 +17,10 @@ namespace EShop.Core.Entities
         public string Description { get; set; }
         
         public virtual ICollection<ProductFile> ProductFiles { get; set; }
+
+        public File()
+        {
+            ProductFiles = new HashSet<ProductFile>();
+        }
     }
 }

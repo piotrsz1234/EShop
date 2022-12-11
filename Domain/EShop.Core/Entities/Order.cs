@@ -17,9 +17,16 @@ namespace EShop.Core.Entities
         public decimal UserDiscount { get; set; }
         public PaymentType PaymentType { get; set; }
         public long ShippingMethodId { get; set; }
+        public long AddressId { get; set; }
 
         public virtual User User { get; set; }
+        public virtual Address Address { get; set; }
         public virtual ShippingMethod ShippingMethod { get; set; }
         public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+
+        public Order()
+        {
+            OrderProducts = new HashSet<OrderProduct>();
+        }
     }
 }

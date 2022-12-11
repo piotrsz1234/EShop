@@ -21,5 +21,11 @@ namespace EShop.Core.Entities
         public virtual Category Category { get; set; }
         public virtual ICollection<OrderProduct> OrderProduct { get; set; }
         public virtual ICollection<ProductFile> ProductFiles { get; set; }
+
+        public Product()
+        {
+            OrderProduct = new HashSet<OrderProduct>();
+            ProductFiles = new HashSet<ProductFile>();
+        }
     }
 }

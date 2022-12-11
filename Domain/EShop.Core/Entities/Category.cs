@@ -17,5 +17,11 @@ namespace EShop.Core.Entities
         public virtual Category OwnerCategory { get; set; }
         public virtual ICollection<Category> OwnedCategories { get; set; }
         public virtual ICollection<Product> Products { get; set; }
+
+        public Category()
+        {
+            OwnedCategories = new HashSet<Category>();
+            Products = new HashSet<Product>();
+        }
     }
 }
