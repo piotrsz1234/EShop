@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EShop.Core.Entities.Attributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using EShop.Core.Entities.Enums;
@@ -9,8 +10,11 @@ namespace EShop.Core.Entities
     public class Order : IEntity
     {
         public long Id { get; set; }
+        [SqlDefaultValue(DefaultValue = "(0)")]
         public bool IsDeleted { get; set; }
+        [SqlDefaultValue(DefaultValue = "GETUTCDATE()")]
         public DateTime InsertDateUtc { get; set; }
+        [SqlDefaultValue(DefaultValue = "GETUTCDATE()")]
         public DateTime ModificationDateUtc { get; set; }
         public string OrderNumber { get; set; }
         public long UserId { get; set; }
@@ -22,11 +26,11 @@ namespace EShop.Core.Entities
         public virtual User User { get; set; }
         public virtual Address Address { get; set; }
         public virtual ShippingMethod ShippingMethod { get; set; }
-        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+        public virtual ICollection<OrderProduct> OrderProduct { get; set; }
 
         public Order()
         {
-            OrderProducts = new HashSet<OrderProduct>();
+            OrderProduct = new HashSet<OrderProduct>();
         }
     }
 }

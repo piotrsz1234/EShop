@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EShop.Core.Entities.Attributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,9 +10,11 @@ namespace EShop.Core.Entities
 {
     public class User : IdentityUser<long, UserLogin, UserRole, UserClaim>, IEntity
     {
-        [Key] public override long Id { get; set; }
+        [SqlDefaultValue(DefaultValue = "(0)")]
         public bool IsDeleted { get; set; }
+        [SqlDefaultValue(DefaultValue = "GETUTCDATE()")]
         public DateTime InsertDateUtc { get; set; }
+        [SqlDefaultValue(DefaultValue = "GETUTCDATE()")]
         public DateTime ModificationDateUtc { get; set; }
         public bool IsNewsletterReceiver { get; set; }
 
