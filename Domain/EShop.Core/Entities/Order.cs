@@ -18,7 +18,7 @@ namespace EShop.Core.Entities
         public DateTime ModificationDateUtc { get; set; }
         public string OrderNumber { get; set; }
         public long UserId { get; set; }
-        public decimal UserDiscount { get; set; }
+        //public decimal UserDiscount { get; set; }
         public PaymentType PaymentType { get; set; }
         public long ShippingMethodId { get; set; }
         public long AddressId { get; set; }
