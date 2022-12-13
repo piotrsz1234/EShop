@@ -3,10 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using EShop.Core.Entities.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace EShop.Core.Entities
 {
-    public class Product : IEntity
+    public class Promotion : IEntity
     {
         public long Id { get; set; }
         [SqlDefaultValue(DefaultValue = "(0)")]
@@ -16,22 +17,18 @@ namespace EShop.Core.Entities
         [SqlDefaultValue(DefaultValue = "GETUTCDATE()")]
         public DateTime ModificationDateUtc { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public decimal Price { get; set; }
-        public long CategoryId { get; set; }
-        public bool IsInTrash { get; set; }
-        public bool IsHidden { get; set; }
-        public int VatValue { get; set; }
+        [Range(0, 100, ErrorMessage = "Promotion procent value can't be lower than 0% or higher than 100%")]
+        public decimal ProcentValue { get; set; }
+        [SqlDefaultValue(DefaultValue = "GETUTCDATE()")]
+        public DateTime StartPromotionDate { get; set; }
+        [SqlDefaultValue(DefaultValue = "GETUTCDATE()")]
+        public DateTime EndPromotionDate { get; set; }
 
-        public virtual Category Category { get; set; }
-        public virtual ICollection<OrderProduct> OrderProduct { get; set; }
-        public virtual ICollection<ProductFile> ProductFiles { get; set; }
+
         public virtual ICollection<ProductPromotion> ProductPromotions { get; set; }
 
-        public Product()
+        public Promotion()
         {
-            OrderProduct = new HashSet<OrderProduct>();
-            ProductFiles = new HashSet<ProductFile>();
             ProductPromotions = new HashSet<ProductPromotion>();
         }
     }
