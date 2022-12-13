@@ -1,26 +1,36 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Linq;
 using EShop.Core.Entities;
 using EShop.Core.Entities.Attributes;
 using EShop.Core.Extensions;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using File = EShop.Core.Entities.File;
 
-namespace EShop.Implementation.EFCore.Contexts
+namespace EShop.Implementations.EF.Contexts
 {
     public class MainDbContext : IdentityDbContext<User, Role, long, UserLogin, UserRole, UserClaim>
     {
-        public MainDbContext(): base("Data Source=.;Initial Catalog=SimpleShop;Trusted_Connection=True")
+        public DbSet<Address> Address { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<File> File { get; set; }
+        public DbSet<Promotion> Promotion { get; set; }
+        public DbSet<ProductPromotion> ProductPromotion { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderProduct> OrderProduct { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<ProductFile> ProductFile { get; set; }
+        public DbSet<ShippingMethod> ShippingMethod { get; set; }
+
+        public MainDbContext(): base("Data Source=.;Initial Catalog=EShop;Trusted_Connection=True")
         {
             
         }
         
         protected override void OnModelCreating(DbModelBuilder builder)
         {
-            builder.Conventions.Add(new AttributeToColumnAnnotationConvention<SqlDefaultValueAttribute, string>("SqlDefaultValue", 
+            builder.Conventions.Add(new AttributeToColumnAnnotationConvention<SqlDefaultValueAttribute, string>("SqlDefaultValue",
                 (info, list) => list.Single().DefaultValue));
-            
+
             builder.Entity<Address>(entity => {
                 entity.HasKey(e => e.Id);
                 entity.HasRequired(e => e.User).WithMany(e => e.Addresses).HasForeignKey(e => e.UserId);
@@ -48,7 +58,7 @@ namespace EShop.Implementation.EFCore.Contexts
             builder.Entity<Order>(entity => {
                 entity.HasKey(e => e.Id);
                 entity.HasRequired(e => e.Address).WithMany(e => e.Orders).HasForeignKey(e => e.AddressId);
-                entity.HasRequired(e => e.User).WithMany(e => e.Orders).HasForeignKey(e => e.UserId);
+                entity.HasRequired(e => e.User).WithMany(e => e.Orders).HasForeignKey(e => e.UserId).WillCascadeOnDelete(false);
                 entity.HasRequired(e => e.ShippingMethod).WithMany(e => e.Orders).HasForeignKey(e => e.ShippingMethodId);
             });
             

@@ -1,16 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33027.164
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Web", "Application\EShop.Web\EShop.Web.csproj", "{D13CDE3B-6BF3-453F-8BF8-858381198C89}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{23FD6C36-018F-4AA3-A740-74D48B059F94}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{A12C613F-62FD-4E98-B40F-05030C98E1D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Core", "Domain\EShop.Core\EShop.Core.csproj", "{9065A08D-2E3F-4BDB-BC17-7257D8BE808C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop.Core", "Domain\EShop.Core\EShop.Core.csproj", "{9065A08D-2E3F-4BDB-BC17-7257D8BE808C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Implementations", "Implementations", "{04CD8ACF-FF55-458B-AE32-3E3B2C11010A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Implementation.EFCore", "Implementstions\EShop.Implementation.EFCore\EShop.Implementation.EFCore.csproj", "{0E52A8EF-966F-4812-A23A-3294188367A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Implementations.EF", "Implementstions\EShop.Implementations.EF\EShop.Implementations.EF.csproj", "{6AC8D193-94C6-4DEF-8921-38DE1043955A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,14 +29,20 @@ Global
 		{9065A08D-2E3F-4BDB-BC17-7257D8BE808C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9065A08D-2E3F-4BDB-BC17-7257D8BE808C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9065A08D-2E3F-4BDB-BC17-7257D8BE808C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E52A8EF-966F-4812-A23A-3294188367A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E52A8EF-966F-4812-A23A-3294188367A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E52A8EF-966F-4812-A23A-3294188367A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E52A8EF-966F-4812-A23A-3294188367A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AC8D193-94C6-4DEF-8921-38DE1043955A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AC8D193-94C6-4DEF-8921-38DE1043955A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AC8D193-94C6-4DEF-8921-38DE1043955A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AC8D193-94C6-4DEF-8921-38DE1043955A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D13CDE3B-6BF3-453F-8BF8-858381198C89} = {23FD6C36-018F-4AA3-A740-74D48B059F94}
 		{9065A08D-2E3F-4BDB-BC17-7257D8BE808C} = {A12C613F-62FD-4E98-B40F-05030C98E1D7}
-		{0E52A8EF-966F-4812-A23A-3294188367A8} = {04CD8ACF-FF55-458B-AE32-3E3B2C11010A}
+		{6AC8D193-94C6-4DEF-8921-38DE1043955A} = {04CD8ACF-FF55-458B-AE32-3E3B2C11010A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {12A3BB8F-69EE-4DDF-9DC9-A445A790A586}
 	EndGlobalSection
 EndGlobal

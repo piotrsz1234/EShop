@@ -21,7 +21,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
-    <NuGetPackageImportStamp />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,6 +43,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -199,6 +206,16 @@
     <TypeScriptCompile Include="Scripts\typings\sweetalert2\sweetalert2.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\tabulator\index.d.ts" />
     <TypeScriptCompile Include="Scripts\ViewScripts\Shared\Layout.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\EShop.Core\EShop.Core.csproj">
+      <Project>{9065a08d-2e3f-4bdb-bc17-7257d8be808c}</Project>
+      <Name>EShop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Implementstions\EShop.Implementation.EFCore\EShop.Implementation.EFCore.csproj">
+      <Project>{0e52a8ef-966f-4812-a23a-3294188367a8}</Project>
+      <Name>EShop.Implementation.EFCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
