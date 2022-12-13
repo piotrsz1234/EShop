@@ -34,7 +34,17 @@ namespace EShop.Implementation.EFCore.Contexts
             builder.Entity<File>(entity => {
                 entity.HasKey(e => e.Id);
             });
-            
+
+            builder.Entity<Promotion>(entity => {
+                entity.HasKey(e => e.Id);
+            });
+
+            builder.Entity<ProductPromotion>(entity => {
+                entity.HasKey(e => e.Id);
+                entity.HasRequired(e => e.Promotion).WithMany(e => e.ProductPromotions).HasForeignKey(e => e.PromotionId);
+                entity.HasRequired(e => e.Product).WithMany(e => e.ProductPromotions).HasForeignKey(e => e.ProductId);
+            });
+
             builder.Entity<Order>(entity => {
                 entity.HasKey(e => e.Id);
                 entity.HasRequired(e => e.Address).WithMany(e => e.Orders).HasForeignKey(e => e.AddressId);
