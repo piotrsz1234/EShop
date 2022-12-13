@@ -5,6 +5,7 @@ using EShop.Core.Extensions;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
+using File = EShop.Core.Entities.File;
 
 namespace EShop.Implementation.EFCore.Contexts
 {
