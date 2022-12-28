@@ -1,6 +1,5 @@
 ﻿using EShop.Core.Entities.Attributes;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using EShop.Core.Entities.Interfaces;
 
@@ -22,8 +21,11 @@ namespace EShop.Core.Entities
         public bool IsInTrash { get; set; }
         public bool IsHidden { get; set; }
         public int VatValue { get; set; }
+        public long? OldVersionProductId { get; set; }
 
         public virtual Category Category { get; set; }
+        public virtual Product OldVersionProduct { get; set; }
+        public virtual ICollection<Product> NewVersionsProduct { get; set; }
         public virtual ICollection<OrderProduct> OrderProduct { get; set; }
         public virtual ICollection<ProductFile> ProductFiles { get; set; }
         public virtual ICollection<ProductPromotion> ProductPromotions { get; set; }
@@ -33,6 +35,7 @@ namespace EShop.Core.Entities
             OrderProduct = new HashSet<OrderProduct>();
             ProductFiles = new HashSet<ProductFile>();
             ProductPromotions = new HashSet<ProductPromotion>();
+            NewVersionsProduct = new HashSet<Product>();
         }
     }
 }

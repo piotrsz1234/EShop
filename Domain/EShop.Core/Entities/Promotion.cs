@@ -1,6 +1,5 @@
 ﻿using EShop.Core.Entities.Attributes;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using EShop.Core.Entities.Interfaces;
 using System.ComponentModel.DataAnnotations;

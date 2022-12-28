@@ -71,6 +71,7 @@ namespace EShop.Implementations.EF.Contexts
             builder.Entity<Product>(entity => {
                 entity.HasKey(e => e.Id);
                 entity.HasRequired(e => e.Category).WithMany(e => e.Products).HasForeignKey(e => e.CategoryId);
+                entity.HasOptional(e => e.OldVersionProduct).WithMany(e => e.NewVersionsProduct).HasForeignKey(e => e.OldVersionProductId);
             });
             
             builder.Entity<ProductFile>(entity => {
