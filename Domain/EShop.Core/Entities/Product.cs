@@ -29,6 +29,7 @@ namespace EShop.Core.Entities
         public virtual ICollection<OrderProduct> OrderProduct { get; set; }
         public virtual ICollection<ProductFile> ProductFiles { get; set; }
         public virtual ICollection<ProductPromotion> ProductPromotions { get; set; }
+        public virtual ICollection<BasketProduct> BasketProduct { get; set; }
 
         public Product()
         {
@@ -36,6 +37,7 @@ namespace EShop.Core.Entities
             ProductFiles = new HashSet<ProductFile>();
             ProductPromotions = new HashSet<ProductPromotion>();
             NewVersionsProduct = new HashSet<Product>();
+            BasketProduct = new HashSet<BasketProduct>();
         }
     }
 }

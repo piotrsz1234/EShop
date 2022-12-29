@@ -12,7 +12,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Autofac" Version="6.4.0" />
       <PackageReference Include="AutoMapper" Version="7.0.1" />
+      <PackageReference Include="itext7" Version="7.2.4" />
       <PackageReference Include="MimeTypes" Version="2.4.0">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

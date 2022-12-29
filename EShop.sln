@@ -19,6 +19,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Dtos", "Domain\EShop.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Implementations.Core", "Implementations\EShop.Implementations.Core\EShop.Implementations.Core.csproj", "{86E9FA7C-FD30-48D9-B0D0-174BEFE1BECB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MailTemplates", "MailTemplates", "{4595BFFE-0D01-4252-8508-F8B29F6EDD66}"
+	ProjectSection(SolutionItems) = preProject
+		MailTemplates\OrderCreatedMail.html = MailTemplates\OrderCreatedMail.html
+		MailTemplates\OrderStatusChangedMail.html = MailTemplates\OrderStatusChangedMail.html
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

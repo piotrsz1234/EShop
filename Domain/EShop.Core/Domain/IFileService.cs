@@ -8,5 +8,7 @@ namespace EShop.Core.Domain
     {
         Task<long> UploadFileAsync(byte[] fileBytes, string originalName, string fileDescription, FileType? type = null);
         Task<Tuple<long, long>> UploadBigImageAndResizeAsync(byte[] fileBytes, string originalName, string fileDescription);
+        Task<byte[]> DownloadFileAsync(long fileId);
+        Task<byte[]> CreatePdfPricingFileForCategoryAsync(long categoryId);
     }
 }

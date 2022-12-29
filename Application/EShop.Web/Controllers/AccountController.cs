@@ -1,4 +1,6 @@
-﻿using EShop.Web.Models;
+﻿using EShop.Web.Identity;
+using EShop.Web.Models;
+using Microsoft.AspNet.Identity.Owin;
 using System.Web.Mvc;
 using Login = EShop.Web.Models.Login;
 
@@ -6,6 +8,13 @@ namespace EShop.Web.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly ShopSignInManager _shopSignInManager;
+
+        public AccountController(ShopSignInManager shopSignInManager)
+        {
+            _shopSignInManager = shopSignInManager;
+        }
+
         // GET: Account
         public ActionResult Index()
         {
@@ -14,6 +23,7 @@ namespace EShop.Web.Controllers
 
         public ActionResult SignUp()
         {
+            //TO DO
             return View();
         }
 
@@ -22,7 +32,7 @@ namespace EShop.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                //TO DO
+                //_shopSignInManager.CreateUserIdentity(new )
                 return RedirectToAction("Message");
             }
             return View();

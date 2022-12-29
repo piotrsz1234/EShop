@@ -8,7 +8,7 @@ namespace EShop.Web
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
+            AutofacConfig.ConfigureContainer();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

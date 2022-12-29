@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using EShop.Core.Domain;
+using System.Web.Mvc;
 
 namespace EShop.Web.Controllers
 {

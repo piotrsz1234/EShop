@@ -80,6 +80,14 @@ namespace EShop.Implementations.Core.Infrastructure.Repositories
 
         public async Task SaveChangesAsync()
         {
+            foreach (var entry in DbContext.ChangeTracker.Entries()) {
+                if (entry.Entity is not IEntity entity) continue;
+
+                if(entry.OriginalValues[nameof(IEntity.ModificationDateUtc)] != entry.CurrentValues[nameof(IEntity.ModificationDateUtc)])
+                    continue;
+                    
+                entity.ModificationDateUtc = DateTime.UtcNow;
+            }
             await DbContext.SaveChangesAsync();
         }
 

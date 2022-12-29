@@ -20,8 +20,10 @@ namespace EShop.Implementations.EF.Contexts
         public DbSet<Product> Product { get; set; }
         public DbSet<ProductFile> ProductFile { get; set; }
         public DbSet<ShippingMethod> ShippingMethod { get; set; }
+        public DbSet<Basket> Basket { get; set; }
+        public DbSet<BasketProduct> BasketProduct { get; set; }
 
-        public MainDbContext(): base("Data Source=.;Initial Catalog=EShop;Trusted_Connection=True")
+        public MainDbContext(): base("MainDbContext")
         {
             
         }
@@ -90,6 +92,16 @@ namespace EShop.Implementations.EF.Contexts
             
             builder.Entity<UserRole>(entity => {
                 entity.HasKey(e => e.Id);
+            });
+            
+            builder.Entity<Basket>(entity => {
+                entity.HasKey(e => e.Id);
+                entity.HasRequired(e => e.User).WithMany(e => e.Baskets).HasForeignKey(e => e.UserId);
+            });
+            
+            builder.Entity<BasketProduct>(entity => {
+                entity.HasKey(e => e.Id);
+                entity.HasRequired(e => e.Basket).WithMany(e => e.BasketProducts).HasForeignKey(e => e.BasketId);
             });
 
             base.OnModelCreating(builder);
