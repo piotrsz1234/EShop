@@ -1,5 +1,4 @@
-﻿using EShop.Core.Entities;
-using EShop.Core.Infrastructure.Repositories;
+﻿using EShop.Core.Infrastructure.Repositories;
 using EShop.Implementations.EF.Contexts;
 using System.Linq.Expressions;
 using File = EShop.Core.Entities.File;

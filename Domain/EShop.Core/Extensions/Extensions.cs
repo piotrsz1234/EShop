@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Reflection;
 
 namespace EShop.Core.Extensions
@@ -19,6 +17,16 @@ namespace EShop.Core.Extensions
             }
 
             return value.ToString();
-        } 
+        }
+
+        public static HashSet<T> ToHashSet<T>(this IEnumerable<T> enumerable)
+        {
+            var result = new HashSet<T>();
+            foreach (var item in enumerable)
+            {
+                result.Add(item);
+            }
+            return result;
+        }
     }
 }

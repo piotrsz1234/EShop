@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace EShop.Dtos.Product.Models
+﻿namespace EShop.Dtos.Product.Models
 {
     public class AddEditProductModel
     {

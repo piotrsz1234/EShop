@@ -1,9 +1,6 @@
 ﻿using EShop.Core.Domain;
 using EShop.Core.Entities;
 using EShop.Core.Infrastructure.Repositories;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EShop.Implementations.Core.Domain
 {

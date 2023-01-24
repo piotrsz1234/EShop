@@ -1,7 +1,5 @@
 ﻿using EShop.Core.Entities.Attributes;
-using System;
-using System.Collections.Generic;
-using EShop.Core.Entities.Enums;
+using EShop.Core.Common.Enums;
 using EShop.Core.Entities.Interfaces;
 
 namespace EShop.Core.Entities

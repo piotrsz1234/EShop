@@ -19,6 +19,8 @@ namespace EShop.Web
             RegisterServices.Register(builder);
 
             builder.RegisterType<ShopSignInManager>().InstancePerLifetimeScope();
+            builder.RegisterType<ShopSignInManager>().InstancePerLifetimeScope();
+            builder.RegisterType<ShopUserStore>().InstancePerLifetimeScope();
             
             _container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(_container));

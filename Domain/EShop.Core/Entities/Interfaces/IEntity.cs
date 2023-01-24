@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EShop.Core.Entities.Interfaces
+﻿namespace EShop.Core.Entities.Interfaces
 {
     public interface IEntity
     {

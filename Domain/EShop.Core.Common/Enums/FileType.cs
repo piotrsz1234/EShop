@@ -1,4 +1,4 @@
-﻿namespace EShop.Core.Entities.Enums
+﻿namespace EShop.Core.Common.Enums
 {
     public enum FileType
     {

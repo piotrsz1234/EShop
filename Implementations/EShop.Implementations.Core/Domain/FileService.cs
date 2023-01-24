@@ -1,16 +1,12 @@
 ﻿using EShop.Core.Domain;
-using EShop.Core.Entities.Enums;
 using EShop.Core.Infrastructure.Repositories;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
-using System;
 using System.Configuration;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using EShop.Core.Common.Enums;
 using File = EShop.Core.Entities.File;
 using Image = System.Drawing.Image;
 using Path = System.IO.Path;

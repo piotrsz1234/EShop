@@ -1,5 +1,4 @@
 ﻿using EShop.Core.Entities.Attributes;
-using System;
 using EShop.Core.Entities.Interfaces;
 
 namespace EShop.Core.Entities

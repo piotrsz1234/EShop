@@ -1,7 +1,5 @@
 ﻿using EShop.Core.Entities.Attributes;
 using EShop.Core.Entities.Interfaces;
-using System;
-using System.Collections.Generic;
 
 namespace EShop.Core.Entities
 {

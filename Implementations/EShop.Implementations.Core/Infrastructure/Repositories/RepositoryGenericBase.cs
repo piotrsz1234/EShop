@@ -1,12 +1,8 @@
 ﻿using EShop.Core.Entities.Interfaces;
 using EShop.Core.Infrastructure.Repositories;
 using EShop.Implementations.EF.Contexts;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace EShop.Implementations.Core.Infrastructure.Repositories
 {

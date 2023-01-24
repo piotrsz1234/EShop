@@ -1,7 +1,6 @@
 ﻿using EShop.Dtos.Product;
 using EShop.Dtos.Product.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using EShop.Dtos.Product.Results;
 
 namespace EShop.Core.Domain
 {

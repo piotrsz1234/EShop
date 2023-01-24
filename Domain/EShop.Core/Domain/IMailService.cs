@@ -1,5 +1,4 @@
 ﻿using EShop.Core.Entities;
-using System.Threading.Tasks;
 
 namespace EShop.Core.Domain
 {

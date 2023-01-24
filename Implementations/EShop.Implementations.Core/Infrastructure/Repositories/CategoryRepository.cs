@@ -1,10 +1,7 @@
 ﻿using EShop.Core.Entities;
 using EShop.Core.Infrastructure.Repositories;
 using EShop.Implementations.EF.Contexts;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EShop.Implementations.Core.Infrastructure.Repositories
 {

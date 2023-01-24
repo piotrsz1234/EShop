@@ -3,10 +3,8 @@ using EShop.Core.Entities;
 using EShop.Core.Infrastructure.Repositories;
 using EShop.Dtos.Product;
 using EShop.Dtos.Product.Models;
+using EShop.Dtos.Product.Results;
 using EShop.Implementations.Core.Utils;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace EShop.Implementations.Core.Domain
 {

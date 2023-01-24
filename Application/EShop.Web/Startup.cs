@@ -1,13 +1,10 @@
-﻿using EShop.Core.Entities;
-using EShop.Web;
+﻿using EShop.Web;
 using EShop.Web.Identity;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using System;
-using System.Configuration;
 
 [assembly: OwinStartup(typeof(Startup))]
 

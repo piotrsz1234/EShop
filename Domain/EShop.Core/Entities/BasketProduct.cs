@@ -1,6 +1,5 @@
 ﻿using EShop.Core.Entities.Attributes;
 using EShop.Core.Entities.Interfaces;
-using System;
 
 namespace EShop.Core.Entities
 {

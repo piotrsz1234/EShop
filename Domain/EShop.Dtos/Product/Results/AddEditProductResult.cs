@@ -1,4 +1,4 @@
-﻿namespace EShop.Dtos.Product
+﻿namespace EShop.Dtos.Product.Results
 {
     public class AddEditProductResult
     {

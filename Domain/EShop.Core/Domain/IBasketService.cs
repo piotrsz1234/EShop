@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace EShop.Core.Domain
+﻿namespace EShop.Core.Domain
 {
     public interface IBasketService
     {

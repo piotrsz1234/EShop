@@ -1,6 +1,5 @@
 ﻿using EShop.Web.Identity;
 using EShop.Web.Models;
-using Microsoft.AspNet.Identity.Owin;
 using System.Web.Mvc;
 using Login = EShop.Web.Models.Login;
 

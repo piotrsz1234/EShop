@@ -1,5 +1,4 @@
-﻿using EShop.Core.Entities;
-using File = EShop.Core.Entities.File;
+﻿using File = EShop.Core.Entities.File;
 
 namespace EShop.Core.Infrastructure.Repositories
 {

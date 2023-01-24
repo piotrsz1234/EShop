@@ -1,6 +1,4 @@
 ﻿using EShop.Core.Entities.Attributes;
-using System;
-using System.Collections.Generic;
 using EShop.Core.Entities.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;

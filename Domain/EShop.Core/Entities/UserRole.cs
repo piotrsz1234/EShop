@@ -1,5 +1,4 @@
 ﻿using EShop.Core.Entities.Attributes;
-using System;
 using EShop.Core.Entities.Interfaces;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;

@@ -1,6 +1,4 @@
-﻿using EShop.Core.Entities.Enums;
-using System;
-using System.Threading.Tasks;
+﻿using EShop.Core.Common.Enums;
 
 namespace EShop.Core.Domain
 {

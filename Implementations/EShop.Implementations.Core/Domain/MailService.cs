@@ -1,14 +1,10 @@
 ﻿using EShop.Core.Domain;
 using EShop.Core.Entities;
 using EShop.Core.Extensions;
-using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
-using System.Threading.Tasks;
 using File = System.IO.File;
 
 namespace EShop.Implementations.Core.Domain
