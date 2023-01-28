@@ -1,13 +1,14 @@
-﻿using EShop.Core.Entities;
+﻿using System.Threading.Tasks;
+using EShop.Core.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 
 namespace EShop.Web.Identity
 {
-    internal class ShopUserManager : UserManager<User, long>
+    public class ShopUserManager : UserManager<User, long>
     {
-        public ShopUserManager(IUserStore<User, long> store) : base(store)
+        public ShopUserManager(ShopUserStore store) : base(store)
         {
         }
     
@@ -38,6 +39,11 @@ namespace EShop.Web.Identity
                     new DataProtectorTokenProvider<User, long>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
+        }
+
+        public async Task AddUserAsync(User user)
+        {
+            await (Store as ShopUserStore).CreateAsync(user);
         }
     }
 }

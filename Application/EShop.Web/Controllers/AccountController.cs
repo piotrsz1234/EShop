@@ -1,6 +1,11 @@
-﻿using EShop.Web.Identity;
+﻿using System;
+using System.Threading.Tasks;
+using EShop.Web.Identity;
 using EShop.Web.Models;
 using System.Web.Mvc;
+using EShop.Core.Entities;
+using EShop.Core.Extensions;
+using Microsoft.AspNet.Identity.Owin;
 using Login = EShop.Web.Models.Login;
 
 namespace EShop.Web.Controllers
@@ -27,11 +32,19 @@ namespace EShop.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignUp(Registration registration)
+        public async Task<ActionResult> SignUp(Registration registration)
         {
             if (ModelState.IsValid)
             {
-                //_shopSignInManager.CreateUserIdentity(new )
+                var temp  = await _shopSignInManager.SignUp (new User()
+                {
+                    Email = registration.Email,
+                    UserName = registration.Username,
+                    PasswordHash = registration.Password.CreateHash(),
+                    PhoneNumber = registration.PhoneNumber,
+                    InsertDateUtc = DateTime.UtcNow,
+                    ModificationDateUtc = DateTime.UtcNow,
+                });
                 return RedirectToAction("Message");
             }
             return View();

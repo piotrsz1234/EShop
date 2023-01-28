@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace EShop.Core.Extensions
 {
@@ -27,6 +29,21 @@ namespace EShop.Core.Extensions
                 result.Add(item);
             }
             return result;
+        }
+        
+        public static string CreateHash(this string text)
+        {
+            using (SHA256 sha256Hash = SHA256.Create()) {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(text));
+
+                StringBuilder builder = new StringBuilder();
+
+                foreach (var value in bytes) {
+                    builder.Append(value.ToString("x2"));
+                }
+
+                return builder.ToString();
+            }
         }
     }
 }

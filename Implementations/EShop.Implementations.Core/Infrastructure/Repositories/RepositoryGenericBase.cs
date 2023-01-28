@@ -79,6 +79,8 @@ namespace EShop.Implementations.Core.Infrastructure.Repositories
             foreach (var entry in DbContext.ChangeTracker.Entries()) {
                 if (entry.Entity is not IEntity entity) continue;
 
+                if (entry.State != EntityState.Modified) continue;
+                
                 if(entry.OriginalValues[nameof(IEntity.ModificationDateUtc)] != entry.CurrentValues[nameof(IEntity.ModificationDateUtc)])
                     continue;
                     

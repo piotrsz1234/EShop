@@ -10,7 +10,7 @@ namespace EShop.Web.Identity
 {
     public class ShopSignInManager : SignInManager<User, long>
     {
-        public ShopSignInManager(UserManager<User, long> userManager, IAuthenticationManager authenticationManager) : base(userManager, authenticationManager)
+        public ShopSignInManager(ShopUserManager userManager, IAuthenticationManager authenticationManager) : base(userManager, authenticationManager)
         {
         }
 
@@ -30,6 +30,13 @@ namespace EShop.Web.Identity
             var userIdentity = await manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
+        }
+
+        public async Task<User> SignUp(User user)
+        {
+            await (UserManager as ShopUserManager).AddUserAsync(user);
+
+            return user;
         }
     }
 }
