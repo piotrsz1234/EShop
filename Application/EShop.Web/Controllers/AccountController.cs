@@ -83,7 +83,7 @@ namespace EShop.Web.Controllers
                     IsAdmin = user.Roles.Any(x => x.Role.IsAdmin)
                 };
                 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("", "Product");
             }
 
             return View();

@@ -47,6 +47,8 @@ namespace EShop.Implementations.Core.Domain
                 DiscName = discName,
                 Type = fileType,
                 DisplayFileName = originalName,
+                InsertDateUtc = DateTime.UtcNow,
+                ModificationDateUtc = DateTime.UtcNow,
             };
             
             await _fileRepository.AddAsync(file);
@@ -76,13 +78,13 @@ namespace EShop.Implementations.Core.Domain
             }
         }
 
-        public async Task<byte[]> DownloadFileAsync(long fileId)
+        public async Task<(byte[], string)> DownloadFileAsync(long fileId)
         {
             var file = await _fileRepository.GetOneAsync(fileId);
 
-            if (file is null) return null;
+            if (file is null) return default;
 
-            return System.IO.File.ReadAllBytes(Path.Combine(FilePath, file.DiscName));
+            return new (System.IO.File.ReadAllBytes(Path.Combine(FilePath, file.DiscName)), file.DisplayFileName);
         }
 
         public async Task<byte[]> CreatePdfPricingFileForCategoryAsync(long categoryId)

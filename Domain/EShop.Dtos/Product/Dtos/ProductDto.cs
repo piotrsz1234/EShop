@@ -12,4 +12,6 @@ public sealed class ProductDto
     public bool IsHidden { get; set; }
     public int VatValue { get; set; }
     public string CategoryName { get; set; }
+    public long? SmallImageId { get; set; }
+    public long? BigImageId { get; set; }
 }

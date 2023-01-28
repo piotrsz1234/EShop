@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using EShop.Core.Entities;
@@ -23,83 +25,90 @@ namespace EShop.Implementations.EF.Contexts
         public DbSet<Basket> Basket { get; set; }
         public DbSet<BasketProduct> BasketProduct { get; set; }
 
-        public MainDbContext(): base("MainDbContext")
+        public MainDbContext() : base("MainDbContext")
         {
-            
         }
-        
+
         protected override void OnModelCreating(DbModelBuilder builder)
         {
-            builder.Conventions.Add(new AttributeToColumnAnnotationConvention<SqlDefaultValueAttribute, string>("SqlDefaultValue",
-                (info, list) => list.Single().DefaultValue));
-
-            builder.Entity<Address>(entity => {
+            builder.Properties().Where(x => x.PropertyType == typeof(DateTime)).Configure(c =>
+                c.HasColumnType("datetime2").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed)
+                    .HasColumnAnnotation("SqlDefaultValue", "getdate()"));
+            
+            builder.Properties().Where(x => x.PropertyType == typeof(bool)).Configure(c =>
+                c.HasColumnType("BIT").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed)
+                    .HasColumnAnnotation("SqlDefaultValue", "((0))"));
+            
+            builder.Entity<Address>(entity =>
+            {
                 entity.HasKey(e => e.Id);
                 entity.HasRequired(e => e.User).WithMany(e => e.Addresses).HasForeignKey(e => e.UserId);
             });
 
-            builder.Entity<Category>(entity => {
+            builder.Entity<Category>(entity =>
+            {
                 entity.HasKey(e => e.Id);
                 entity.HasOptional(e => e.OwnerCategory).WithMany(e => e.OwnedCategories);
             });
 
-            builder.Entity<File>(entity => {
-                entity.HasKey(e => e.Id);
-            });
+            builder.Entity<File>(entity => { entity.HasKey(e => e.Id); });
 
-            builder.Entity<Promotion>(entity => {
-                entity.HasKey(e => e.Id);
-            });
+            builder.Entity<Promotion>(entity => { entity.HasKey(e => e.Id); });
 
-            builder.Entity<ProductPromotion>(entity => {
+            builder.Entity<ProductPromotion>(entity =>
+            {
                 entity.HasKey(e => e.Id);
-                entity.HasRequired(e => e.Promotion).WithMany(e => e.ProductPromotions).HasForeignKey(e => e.PromotionId);
+                entity.HasRequired(e => e.Promotion).WithMany(e => e.ProductPromotions)
+                    .HasForeignKey(e => e.PromotionId);
                 entity.HasRequired(e => e.Product).WithMany(e => e.ProductPromotions).HasForeignKey(e => e.ProductId);
             });
 
-            builder.Entity<Order>(entity => {
+            builder.Entity<Order>(entity =>
+            {
                 entity.HasKey(e => e.Id);
                 entity.HasRequired(e => e.Address).WithMany(e => e.Orders).HasForeignKey(e => e.AddressId);
-                entity.HasRequired(e => e.User).WithMany(e => e.Orders).HasForeignKey(e => e.UserId).WillCascadeOnDelete(false);
-                entity.HasRequired(e => e.ShippingMethod).WithMany(e => e.Orders).HasForeignKey(e => e.ShippingMethodId);
+                entity.HasRequired(e => e.User).WithMany(e => e.Orders).HasForeignKey(e => e.UserId)
+                    .WillCascadeOnDelete(false);
+                entity.HasRequired(e => e.ShippingMethod).WithMany(e => e.Orders)
+                    .HasForeignKey(e => e.ShippingMethodId);
             });
-            
-            builder.Entity<OrderProduct>(entity => {
+
+            builder.Entity<OrderProduct>(entity =>
+            {
                 entity.HasKey(e => e.Id);
                 entity.HasRequired(e => e.Order).WithMany(e => e.OrderProduct).HasForeignKey(e => e.OrderId);
                 entity.HasRequired(e => e.Product).WithMany(e => e.OrderProduct).HasForeignKey(e => e.ProductId);
             });
-            
-            builder.Entity<Product>(entity => {
+
+            builder.Entity<Product>(entity =>
+            {
                 entity.HasKey(e => e.Id);
                 entity.HasRequired(e => e.Category).WithMany(e => e.Products).HasForeignKey(e => e.CategoryId);
-                entity.HasOptional(e => e.OldVersionProduct).WithMany(e => e.NewVersionsProduct).HasForeignKey(e => e.OldVersionProductId);
+                entity.HasOptional(e => e.OldVersionProduct).WithMany(e => e.NewVersionsProduct)
+                    .HasForeignKey(e => e.OldVersionProductId);
             });
-            
-            builder.Entity<ProductFile>(entity => {
+
+            builder.Entity<ProductFile>(entity =>
+            {
                 entity.HasKey(e => e.Id);
                 entity.HasRequired(e => e.File).WithMany(e => e.ProductFiles).HasForeignKey(e => e.FileId);
                 entity.HasRequired(e => e.Product).WithMany(e => e.ProductFiles).HasForeignKey(e => e.ProductId);
             });
-            
-            builder.Entity<Role>(entity => {
-                entity.HasKey(e => e.Id);
-            });
-            
-            builder.Entity<ShippingMethod>(entity => {
-                entity.HasKey(e => e.Id);
-            });
-            
-            builder.Entity<UserRole>(entity => {
-                entity.HasKey(e => e.Id);
-            });
-            
-            builder.Entity<Basket>(entity => {
+
+            builder.Entity<Role>(entity => { entity.HasKey(e => e.Id); });
+
+            builder.Entity<ShippingMethod>(entity => { entity.HasKey(e => e.Id); });
+
+            builder.Entity<UserRole>(entity => { entity.HasKey(e => e.Id); });
+
+            builder.Entity<Basket>(entity =>
+            {
                 entity.HasKey(e => e.Id);
                 entity.HasRequired(e => e.User).WithMany(e => e.Baskets).HasForeignKey(e => e.UserId);
             });
-            
-            builder.Entity<BasketProduct>(entity => {
+
+            builder.Entity<BasketProduct>(entity =>
+            {
                 entity.HasKey(e => e.Id);
                 entity.HasRequired(e => e.Basket).WithMany(e => e.BasketProducts).HasForeignKey(e => e.BasketId);
             });

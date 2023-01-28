@@ -56,17 +56,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexts\MainDbContext.cs" />
-    <Compile Include="Migrations\202212130726141_Initial.cs" />
-    <Compile Include="Migrations\202212130726141_Initial.Designer.cs">
-      <DependentUpon>202212130726141_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202212281250487_AddFileType.cs" />
-    <Compile Include="Migrations\202212281250487_AddFileType.Designer.cs">
-      <DependentUpon>202212281250487_AddFileType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202212291643536_SomeChanges.cs" />
-    <Compile Include="Migrations\202212291643536_SomeChanges.Designer.cs">
-      <DependentUpon>202212291643536_SomeChanges.cs</DependentUpon>
+    <Compile Include="CustomSqlServerMigrationSqlGenerator.cs" />
+    <Compile Include="Migrations\202301281759587_Initial.cs" />
+    <Compile Include="Migrations\202301281759587_Initial.Designer.cs">
+      <DependentUpon>202301281759587_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,14 +75,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202212130726141_Initial.resx">
-      <DependentUpon>202212130726141_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202212281250487_AddFileType.resx">
-      <DependentUpon>202212281250487_AddFileType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202212291643536_SomeChanges.resx">
-      <DependentUpon>202212291643536_SomeChanges.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202301281759587_Initial.resx">
+      <DependentUpon>202301281759587_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

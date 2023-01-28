@@ -11,7 +11,8 @@ namespace EShop.Core.Extensions
         {
             FieldInfo fi = value.GetType().GetField(value.ToString());
 
-            DescriptionAttribute[] attributes = fi.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
+            DescriptionAttribute[] attributes =
+                fi.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
 
             if (attributes != null && attributes.Any())
             {
@@ -28,21 +29,44 @@ namespace EShop.Core.Extensions
             {
                 result.Add(item);
             }
+
             return result;
         }
-        
+
         public static string CreateHash(this string text)
         {
-            using (SHA256 sha256Hash = SHA256.Create()) {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
                 byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(text));
 
                 StringBuilder builder = new StringBuilder();
 
-                foreach (var value in bytes) {
+                foreach (var value in bytes)
+                {
                     builder.Append(value.ToString("x2"));
                 }
 
                 return builder.ToString();
+            }
+        }
+
+        public static byte[] ToArray(this Stream stream)
+        {
+            using (var m = new MemoryStream())
+            {
+                stream.CopyTo(m);
+
+                return m.ToArray();
+            }
+        }
+        
+        public static async Task<byte[]> ToArrayAsync(this Stream stream)
+        {
+            using (var m = new MemoryStream())
+            {
+                await stream.CopyToAsync(m);
+
+                return m.ToArray();
             }
         }
     }

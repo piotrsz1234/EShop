@@ -1,0 +1,9 @@
+﻿@model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.Product.Dtos.ProductDto>
+
+@foreach (var product in Model)
+{
+    if (product.SmallImageId.HasValue)
+    {
+        <img src="/File/DownloadFile?fileId=@product.SmallImageId"/>
+    }
+}

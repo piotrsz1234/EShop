@@ -1,6 +1,6 @@
 ﻿class Layout {
     public init = (): void => {
-       $('form-select').
+       //$('form-select').
     }
 }
 
