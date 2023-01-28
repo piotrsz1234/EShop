@@ -8,8 +8,11 @@ namespace EShop.Web.Identity
 {
     public class ShopUserManager : UserManager<User, long>
     {
+        private readonly ShopUserStore _store;
+
         public ShopUserManager(ShopUserStore store) : base(store)
         {
+            _store = store;
         }
     
         public static ShopUserManager Create(IdentityFactoryOptions<ShopUserManager> options, IOwinContext context) 
@@ -44,6 +47,17 @@ namespace EShop.Web.Identity
         public async Task AddUserAsync(User user)
         {
             await (Store as ShopUserStore).CreateAsync(user);
+        }
+
+        public override async Task<User> FindAsync(string userName, string password)
+        {
+            var user = await Store.FindByNameAsync(userName);
+
+            if (user is null) return null;
+
+            if (user.PasswordHash != password) return null;
+
+            return user;
         }
     }
 }

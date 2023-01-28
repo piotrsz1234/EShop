@@ -39,7 +39,7 @@ namespace EShop.Web.Identity
 
         public async Task<User> FindByNameAsync(string userName)
         {
-            return await _userRepository.GetOneAsync(x => x.Email == userName);
+            return await _userRepository.GetOneAsync(x => x.UserName == userName);
         }
         
         public void Dispose()

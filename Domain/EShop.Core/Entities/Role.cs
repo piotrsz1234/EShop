@@ -16,5 +16,11 @@ namespace EShop.Core.Entities
         [SqlDefaultValue(DefaultValue = "GETUTCDATE()")]
         public DateTime ModificationDateUtc { get; set; }
         public bool IsAdmin { get; set; }
+        public virtual ICollection<UserRole> UserRole { get; set; }
+
+        public Role()
+        {
+            UserRole = new HashSet<UserRole>();
+        }
     }
 }

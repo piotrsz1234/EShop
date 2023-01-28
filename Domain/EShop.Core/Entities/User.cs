@@ -19,12 +19,14 @@ namespace EShop.Core.Entities
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<Basket> Baskets { get; set; }
+        public virtual ICollection<UserRole> UserRole { get; set; }
 
         public User()
         {
             Addresses = new HashSet<Address>();
             Orders = new HashSet<Order>();
             Baskets = new HashSet<Basket>();
+            UserRole = new HashSet<UserRole>();
         }
     }
 }

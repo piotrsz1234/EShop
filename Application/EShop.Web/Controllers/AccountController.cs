@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using EShop.Web.Identity;
 using EShop.Web.Models;
 using System.Web.Mvc;
 using EShop.Core.Entities;
 using EShop.Core.Extensions;
+using EShop.Dtos.User.Dtos;
+using EShop.Web.Helpers;
 using Microsoft.AspNet.Identity.Owin;
 using Login = EShop.Web.Models.Login;
 
@@ -36,7 +39,7 @@ namespace EShop.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _shopSignInManager.SignUp (new User()
+                await _shopSignInManager.SignUp(new User()
                 {
                     Email = registration.Email,
                     UserName = registration.Username,
@@ -45,9 +48,10 @@ namespace EShop.Web.Controllers
                     InsertDateUtc = DateTime.UtcNow,
                     ModificationDateUtc = DateTime.UtcNow,
                 });
-                
+
                 return RedirectToAction("Message");
             }
+
             return View();
         }
 
@@ -62,13 +66,26 @@ namespace EShop.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignIn(Login login)
+        public async Task<ActionResult> SignIn(Login login)
         {
             if (ModelState.IsValid)
             {
-                //TO DO
-                return RedirectToAction("Message");
+                var user = await _shopSignInManager.UserManager.FindAsync(login.Username, login.Password.CreateHash());
+
+                if (user == null) return View();
+                
+                _shopSignInManager.SignIn(user, false, true);
+
+                SessionHelper.LoggedUser = new LoggedUserDto()
+                {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    IsAdmin = user.Roles.Any(x => x.Role.IsAdmin)
+                };
+                
+                return RedirectToAction("Index", "Home");
             }
+
             return View();
         }
 
@@ -90,6 +107,7 @@ namespace EShop.Web.Controllers
             {
                 ViewBag.Msg = "Dane nieprawidłowe";
             }
+
             return View();
         }
     }

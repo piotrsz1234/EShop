@@ -15,5 +15,8 @@ namespace EShop.Core.Entities
         public DateTime InsertDateUtc { get; set; }
         [SqlDefaultValue(DefaultValue = "GETUTCDATE()")]
         public DateTime ModificationDateUtc { get; set; }
+        
+        public virtual Role Role { get; set; }
+        public virtual User User { get; set; }
     }
 }

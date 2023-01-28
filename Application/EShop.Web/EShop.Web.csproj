@@ -186,6 +186,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Identity\ShopSignInManager.cs" />
     <Compile Include="Identity\ShopUserStore.cs" />
     <Compile Include="Identity\ShopUserValidator.cs" />
@@ -273,6 +274,10 @@
     <ProjectReference Include="..\..\Domain\EShop.Core\EShop.Core.csproj">
       <Project>{9065a08d-2e3f-4bdb-bc17-7257d8be808c}</Project>
       <Name>EShop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Domain\EShop.Dtos\EShop.Dtos.csproj">
+      <Project>{3e91073d-2dd3-469f-a989-1f1b8007abc2}</Project>
+      <Name>EShop.Dtos</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Implementations\EShop.Implementations.Core\EShop.Implementations.Core.csproj">
       <Project>{86e9fa7c-fd30-48d9-b0d0-174befe1becb}</Project>
