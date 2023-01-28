@@ -36,7 +36,7 @@ namespace EShop.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var temp  = await _shopSignInManager.SignUp (new User()
+                await _shopSignInManager.SignUp (new User()
                 {
                     Email = registration.Email,
                     UserName = registration.Username,
@@ -45,6 +45,7 @@ namespace EShop.Web.Controllers
                     InsertDateUtc = DateTime.UtcNow,
                     ModificationDateUtc = DateTime.UtcNow,
                 });
+                
                 return RedirectToAction("Message");
             }
             return View();
