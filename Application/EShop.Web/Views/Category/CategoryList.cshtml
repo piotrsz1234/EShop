@@ -1,0 +1,40 @@
+﻿@model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.Order.Dtos.CategoryDto>
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Depends on</th>
+        <th scope="col">Direct product count</th>
+        <th scope="col">Direct category dependencies</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Remove</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <th>@item.Name</th>
+            <td>@item.OwnerCategoryName</td>
+            <td>@item.ProductCount</td>
+            <td>@item.CategoryCount</td>
+            @if (item.ProductCount == 0 && item.CategoryCount == 0) {
+                <td><a class="btn btn-primary" href="/Category/AddEdit?categoryId=@item.Id">Edit</a>
+                </td>
+                <td>
+                    <form action="/Category/Remove" method="post">
+                        <input type="hidden" name="categoryId" value="@item.Id" />
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            } else {
+                <td><button class="btn btn-primary disabled">Edit</button>
+                </td>
+                <td><button class="btn btn-danger disabled">Delete</button></td>
+            }
+
+        </tr>
+    }
+    </tbody>
+</table>

@@ -206,12 +206,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DropDownListHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Identity\ShopSignInManager.cs" />
     <Compile Include="Identity\ShopUserStore.cs" />
@@ -243,6 +245,8 @@
     <Content Include="Scripts\libs\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\libs\modernizr-2.8.3.js" />
     <Content Include="tsconfig.json" />
+    <Content Include="Views\Category\AddEdit.cshtml" />
+    <Content Include="Views\Category\CategoryList.cshtml" />
     <Content Include="Views\Product\AddEdit.cshtml" />
     <Content Include="Views\Product\ProductList.cshtml" />
     <Content Include="Views\Shared\_AddressAddEdit.cshtml" />
@@ -315,6 +319,10 @@
     <ProjectReference Include="..\..\Implementations\EShop.Implementations.Core\EShop.Implementations.Core.csproj">
       <Project>{86e9fa7c-fd30-48d9-b0d0-174befe1becb}</Project>
       <Name>EShop.Implementations.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Implementations\EShop.Implementations.EF\EShop.Implementations.EF.csproj">
+      <Project>{6ac8d193-94c6-4def-8921-38de1043955a}</Project>
+      <Name>EShop.Implementations.EF</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Implementstions\EShop.Implementation.EFCore\EShop.Implementation.EFCore.csproj">
       <Project>{0e52a8ef-966f-4812-a23a-3294188367a8}</Project>

@@ -49,6 +49,28 @@ namespace EShop.Implementations.Core.Infrastructure.Repositories
             return await query.Where(expression).ToArrayAsync();
         }
 
+        public IReadOnlyCollection<T> GetAll(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] includes)
+        {
+            var query = DbContext.Set<T>().AsQueryable();
+
+            foreach (var include in includes) {
+                query = query.Include(include);
+            }
+
+            return query.Where(expression).ToList();
+        }
+
+        public IReadOnlyCollection<T> GetAll(params Expression<Func<T, object>>[] includes)
+        {
+            var query = DbContext.Set<T>().AsQueryable();
+
+            foreach (var include in includes) {
+                query = query.Include(include);
+            }
+
+            return query.ToList();
+        }
+
         public async Task<IReadOnlyCollection<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
         {
             var query = DbContext.Set<T>().AsQueryable();
@@ -79,20 +101,18 @@ namespace EShop.Implementations.Core.Infrastructure.Repositories
             foreach (var entry in DbContext.ChangeTracker.Entries()) {
                 if (entry.Entity is not IEntity entity) continue;
 
-                if (entry.State == EntityState.Added)
-                {
-                    entity.InsertDateUtc = DateTime.UtcNow;;
-                    entity.ModificationDateUtc = DateTime.UtcNow;;
+                if (entry.State == EntityState.Added) {
+                    entity.InsertDateUtc = DateTime.UtcNow;
+                    entity.ModificationDateUtc = DateTime.UtcNow;
                     entity.IsDeleted = false;
                 }
-                
+
                 if (entry.State != EntityState.Modified) continue;
-                
-                if(entry.OriginalValues[nameof(IEntity.ModificationDateUtc)] != entry.CurrentValues[nameof(IEntity.ModificationDateUtc)])
-                    continue;
-                    
-                entity.ModificationDateUtc = DateTime.UtcNow;
+
+                if(entry.State == EntityState.Modified)
+                    entity.ModificationDateUtc = DateTime.UtcNow;
             }
+
             await DbContext.SaveChangesAsync();
         }
 

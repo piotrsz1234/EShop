@@ -7,6 +7,7 @@ using EShop.Core.Entities;
 using EShop.Core.Entities.Attributes;
 using EShop.Core.Extensions;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Reflection;
 
 namespace EShop.Implementations.EF.Contexts
 {
@@ -27,18 +28,11 @@ namespace EShop.Implementations.EF.Contexts
 
         public MainDbContext() : base("MainDbContext")
         {
+            Database.Log = Console.WriteLine;
         }
 
         protected override void OnModelCreating(DbModelBuilder builder)
         {
-            builder.Properties().Where(x => x.PropertyType == typeof(DateTime)).Configure(c =>
-                c.HasColumnType("datetime2").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed)
-                    .HasColumnAnnotation("SqlDefaultValue", "getdate()"));
-            
-            builder.Properties().Where(x => x.PropertyType == typeof(bool)).Configure(c =>
-                c.HasColumnType("BIT").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Computed)
-                    .HasColumnAnnotation("SqlDefaultValue", "((0))"));
-            
             builder.Entity<Address>(entity =>
             {
                 entity.HasKey(e => e.Id);

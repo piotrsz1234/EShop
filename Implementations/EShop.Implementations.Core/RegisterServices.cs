@@ -12,7 +12,7 @@ namespace EShop.Implementations.Core
                                                                                    || x.Namespace.Contains("Domain")).Where(x => !x.IsGenericType)
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 
-            builder.RegisterType<MainDbContext>();
+            builder.RegisterType<MainDbContext>().InstancePerLifetimeScope();
         }
     }
 }

@@ -9,7 +9,12 @@ namespace EShop.Core.Infrastructure.Repositories
         Task<T> GetOneAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
         Task<IReadOnlyCollection<T>> GetAllAsync(Expression<Func<T, bool>> expression,
             params Expression<Func<T, object>>[] includes);
-
+        
+        IReadOnlyCollection<T> GetAll(Expression<Func<T, bool>> expression,
+            params Expression<Func<T, object>>[] includes);
+        
+        IReadOnlyCollection<T> GetAll(params Expression<Func<T, object>>[] includes);
+        
         Task<bool> AnyAsync(Expression<Func<T, bool>> expression);
         Task AddAsync(T entity);
         Task SaveChangesAsync();

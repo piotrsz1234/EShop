@@ -1,4 +1,5 @@
-﻿using EShop.Dtos.Order.Models;
+﻿using EShop.Dtos.Order.Dtos;
+using EShop.Dtos.Order.Models;
 
 namespace EShop.Core.Domain;
 

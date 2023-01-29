@@ -13,10 +13,12 @@ namespace EShop.Implementations.Core.Domain
     internal sealed class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
             _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
         }
 
         public async Task<AddEditProductResult> AddEditProductAsync(AddEditProductModel model)
@@ -67,9 +69,10 @@ namespace EShop.Implementations.Core.Domain
 
         public async Task<IReadOnlyCollection<ProductDto>> GetAllFromCategoryAsync(long categoryId)
         {
-            try
-            {
-                var data = await _productRepository.GetAllFromCategoryAsync(categoryId);
+            try {
+                var categories = await _categoryRepository.GetAllWithDependentAsync(categoryId);
+                var data = await _productRepository.GetAllAsync(x => x.IsHidden == false && x.IsDeleted == false
+                                                                                         && x.IsInTrash == false && categories.Contains(x.CategoryId));
 
                 return data.Select(x => new ProductDto()
                 {

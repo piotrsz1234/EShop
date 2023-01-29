@@ -11,7 +11,6 @@ namespace EShop.Implementations.EF.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            SetSqlGenerator("System.Data.SqlClient", new CustomSqlServerMigrationSqlGenerator());
         }
     } 
 }

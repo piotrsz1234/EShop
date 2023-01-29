@@ -1,5 +1,6 @@
 ﻿using EShop.Core.Entities.Attributes;
 using EShop.Core.Entities.Interfaces;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EShop.Core.Entities
 {
@@ -13,6 +14,7 @@ namespace EShop.Core.Entities
         [SqlDefaultValue(DefaultValue = "GETUTCDATE()")]
         public DateTime ModificationDateUtc { get; set; }
         public string Name { get; set; }
+        public bool Disabled { get; set; }
         public long? OwnerCategoryId { get; set; }
 
         public virtual Category OwnerCategory { get; set; }
