@@ -4,9 +4,12 @@ using System.Web;
 using System.Web.Mvc;
 using EShop.Core.Common.Enums;
 using EShop.Core.Domain;
+using EShop.Core.Entities;
 using EShop.Core.Extensions;
+using EShop.Core.Infrastructure.Repositories;
 using EShop.Dtos.Product.Models;
 using EShop.Web.Models;
+using System.Linq;
 
 namespace EShop.Web.Controllers
 {
@@ -14,16 +17,19 @@ namespace EShop.Web.Controllers
     {
         private readonly IProductService _productService;
         private readonly IFileService _fileService;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public ProductController(IProductService productService, IFileService fileService)
+        public ProductController(IProductService productService, IFileService fileService, ICategoryRepository categoryRepository)
         {
             _productService = productService;
             _fileService = fileService;
+            _categoryRepository = categoryRepository;
         }
 
-        public ActionResult AddEdit()
+        public async Task<ActionResult> AddEdit()
         {
-            return View();
+            List<Category> categories = (await _categoryRepository.GetAllAsync()).ToList();
+            return View(categories);
         }
 
         [HttpPost]
@@ -35,7 +41,7 @@ namespace EShop.Web.Controllers
             {
                 Files = new List<long>(),
                 Name = model.Name,
-                CategoryId = 1,
+                CategoryId = model.CategoryId,
                 Description = model.Description,
                 Price = 10
             };
