@@ -31,7 +31,8 @@
                     </form>
                 </td>
             } else {
-                <td><button class="btn btn-primary disabled">Edit</button>
+                <td>
+                    @Html.ActionLink("Edit", "AddEdit", "Category", new { categoryId = item.Id }, null)
                 </td>
                 <td><button class="btn btn-danger disabled">Delete</button></td>
             }

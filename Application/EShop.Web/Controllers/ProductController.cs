@@ -10,6 +10,8 @@ using EShop.Core.Infrastructure.Repositories;
 using EShop.Dtos.Product.Models;
 using EShop.Web.Models;
 using System.Linq;
+using EShop.Implementations.Core.Domain;
+using EShop.Dtos.Order.Dtos;
 
 namespace EShop.Web.Controllers
 {
@@ -26,10 +28,23 @@ namespace EShop.Web.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<ActionResult> AddEdit()
+
+        //public async Task<ActionResult> AddEdit(long? categoryId = null)
+        //{
+        //    var category = categoryId is null ? null : await _categoryService.GetCategoryAsync(categoryId.Value);
+        //    return View(category);
+        //}
+
+        public async Task<ActionResult> AddEdit(long? productId = null)
         {
+            var product = productId is null ? null : await _productService.GetProductAsync(productId.Value);
+            //return View(product);
+
+
             List<Category> categories = (await _categoryRepository.GetAllAsync()).ToList();
-            return View(categories);
+            //return View(categories);
+
+            return View(System.Tuple.Create(product, categories));
         }
 
         [HttpPost]

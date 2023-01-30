@@ -22,6 +22,32 @@ namespace EShop.Implementations.Core.Domain
             _categoryRepository = categoryRepository;
         }
 
+
+        public async Task<ProductDto> GetProductAsync(long productId)
+        {
+            try
+            {
+                var product = await _productRepository.GetOneAsync(productId);
+
+                return new ProductDto()
+                {
+                    CategoryId = product.CategoryId,
+                    Id = product.Id,
+                    Description = product.Description,
+                    Name = product.Name,
+                    Price = product.Price,
+                    CategoryName = product.Category.Name,
+                    VatValue = product.VatValue,
+                    BigImageId = product.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.MainImage)?.Id,
+                    SmallImageId = product.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.SmallImage)?.Id
+                };
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
         public async Task<AddEditProductResult> AddEditProductAsync(AddEditProductModel model)
         {
             try {

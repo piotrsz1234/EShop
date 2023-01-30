@@ -8,6 +8,7 @@ namespace EShop.Core.Domain
 {
     public interface IProductService
     {
+        Task<ProductDto> GetProductAsync(long productId);
         Task<AddEditProductResult> AddEditProductAsync(AddEditProductModel model);
         Task<bool> RemoveProductAsync(long id);
         Task<IReadOnlyCollection<ProductDto>> GetAllFromCategoryAsync(long categoryId);

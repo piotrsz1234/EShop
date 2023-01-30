@@ -1,5 +1,8 @@
 ﻿@Scripts.Render("~/bundles/Product/AddEdit")
 
+@using EShop.Core.Entities;
+@model Tuple<EShop.Dtos.Product.Dtos.ProductDto, List<Category>>
+
 <div class="row">
     <div class="col-sm-8 col-sm-push-2">
         @using (Html.BeginForm("AddEdit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -7,14 +10,14 @@
             <div class="row">
                 <div class="col-sm-12">
                     <label class="form-label">Name</label>
-                    <input class="form-control" name="Name" required />
+                    <input class="form-control" name="Name" required value="@(Model.Item1 != null ? Model.Item1.Name : string.Empty)" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
                     <label class="form-label">Category</label>
                     <select class="form-control" name="CategoryId" required>
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.Item2)
                         {
                             <option value="@item.Id">
                                 @item.Name
@@ -28,7 +31,7 @@
                 <div class="col-sm-12">
                     <label class="form-label" for="Price">Price</label>
                     <div class="controls">
-                        <input class="form-control" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price" name="Price" type="text" value="0.99" />
+                        <input class="form-control" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price" name="Price" type="text" value=@(Model.Item1 != null ? Model.Item1.Price.ToString() : "0.99") />
                         <span class="field-validation-valid help-inline" data-valmsg-for="Price" data-valmsg-replace="true"></span>
                     </div>
                 </div>
@@ -37,13 +40,13 @@
             <div class="row">
                 <div class="col-sm-12">
                     <label class="form-label">Description</label>
-                    <input class="form-control" name="Description" required />
+                    <input class="form-control" name="Description" required value="@(Model.Item1 != null ? Model.Item1.Description : string.Empty)" />
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3">
                     <label class="form-label">Small image</label>
-                    <input class="form-control" name="SmallImage" type="file">
+                    <input class="form-control" name="SmallImage" type="file" >
                 </div>
             </div>
             <div class="row">
