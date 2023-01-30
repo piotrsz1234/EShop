@@ -2,6 +2,7 @@
 using EShop.Core.Domain;
 using EShop.Core.Entities;
 using EShop.Core.Infrastructure.Repositories;
+using EShop.Dtos.Order.Dtos;
 using EShop.Dtos.Product;
 using EShop.Dtos.Product.Dtos;
 using EShop.Dtos.Product.Models;
@@ -73,6 +74,32 @@ namespace EShop.Implementations.Core.Domain
                 var categories = await _categoryRepository.GetAllWithDependentAsync(categoryId);
                 var data = await _productRepository.GetAllAsync(x => x.IsHidden == false && x.IsDeleted == false
                                                                                          && x.IsInTrash == false && categories.Contains(x.CategoryId));
+
+                return data.Select(x => new ProductDto()
+                {
+                    CategoryId = x.CategoryId,
+                    Id = x.Id,
+                    Description = x.Description,
+                    Name = x.Name,
+                    Price = x.Price,
+                    CategoryName = x.Category.Name,
+                    VatValue = x.VatValue,
+                    BigImageId = x.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.MainImage)?.Id,
+                    SmallImageId = x.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.SmallImage)?.Id
+                }).ToList();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public async Task<IReadOnlyCollection<ProductDto>> GetAllProductsAsync()
+        {
+            try
+            {
+                var data = await _productRepository.GetAllAsync(x => x.IsHidden == false && x.IsDeleted == false
+                                                                                         && x.IsInTrash == false);
 
                 return data.Select(x => new ProductDto()
                 {

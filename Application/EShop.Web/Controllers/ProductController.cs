@@ -102,10 +102,16 @@ namespace EShop.Web.Controllers
             return View("_AddressAddEdit");
         }
 
-        public async Task<ActionResult> ProductList(long categoryId = 0)
+        public async Task<ActionResult> ProductList()
         {
-            var products = await _productService.GetAllFromCategoryAsync(categoryId);
+            var products = await _productService.GetAllProductsAsync();
             return View(products);
         }
+
+        //public async Task<ActionResult> ProductList(long categoryId = 0)
+        //{
+        //    var products = await _productService.GetAllFromCategoryAsync(categoryId);
+        //    return View(products);
+        //}
     }
 }

@@ -15,3 +15,12 @@
 .dl-horizontal dt {
     white-space: normal;
 }
+
+
+.column {
+    width: 23%;
+    float: left;
+    margin-let: 1%;
+    margin-right: 1%;
+    margin-bottom: 100px;
+}

@@ -1,9 +1,36 @@
 ﻿@model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.Product.Dtos.ProductDto>
 
-@foreach (var product in Model)
-{
-    if (product.SmallImageId.HasValue)
+<div>
+    @{ int i = 0; }
+    @foreach (var product in Model)
     {
-        <img src="/File/DownloadFile?fileId=@product.SmallImageId"/>
+        if (i > 0 && i % 4 == 0)
+        {
+            @: <div class="row">
+            }
+
+            <div class="column">
+                <div class="card">
+                    <img class="card-img-top" src="/File/DownloadFile?fileId=@product.SmallImageId" alt="Product don't have a picture.'">
+                    <div class="card-header">
+                        <h5 class="card-title">@product.Name</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Description: @product.Description</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Category = @product.CategoryName</li>
+                            <li class="list-group-item">Price = @product.Price</li>
+                            <li class="list-group-item">Vat = @product.VatValue</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">See details</a>
+                    </div>
+                </div>
+            </div>
+
+            if (i > 0 && i % 4 == 0)
+            {
+            @: </div>
+            i++;
+        }
     }
-}
+</div>
