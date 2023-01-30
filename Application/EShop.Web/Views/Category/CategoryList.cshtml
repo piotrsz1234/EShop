@@ -1,6 +1,8 @@
 ﻿@model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.Order.Dtos.CategoryDto>
 
-
+<p>
+    @Html.ActionLink("Create New Category", "AddEdit", "Category")
+</p>
 <table class="table">
     <thead>
     <tr>
@@ -33,7 +35,6 @@
                 </td>
                 <td><button class="btn btn-danger disabled">Delete</button></td>
             }
-
         </tr>
     }
     </tbody>
