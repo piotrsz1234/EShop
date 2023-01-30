@@ -2,5 +2,5 @@
 
 public sealed class ShippingMethodDto
 {
-    
+    public string Name { get; set; }
 }

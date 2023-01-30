@@ -1,4 +1,5 @@
 ﻿using EShop.Core.Domain;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace EShop.Web.Controllers
@@ -12,9 +13,9 @@ namespace EShop.Web.Controllers
             _orderService = orderService;
         }
 
-        public ActionResult ViewOrder(long orderId)
+        public async Task<ActionResult> ViewOrder(long orderId)
         {
-            var order = _orderService.GetOrderDetails(orderId);
+            var order = await _orderService.GetOrderDetails(orderId);
             return View(order);
         }
     }
