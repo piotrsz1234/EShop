@@ -8,6 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/Shared/Layout")
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -37,9 +38,8 @@
   </div>
 </nav>
 <div class="container body-content">
-    @RenderBody()
+  @RenderBody()
 </div>
-
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 @RenderSection("scripts", required: false)

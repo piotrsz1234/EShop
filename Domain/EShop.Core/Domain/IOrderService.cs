@@ -7,4 +7,5 @@ public interface IOrderService
 {
     Task<long?> CreateOrderAsync(CreateOrderModel model);
     Task ChangeStatusOfOrderAsync(ChangeOrderStatusModel model);
+    Task<OrderDto> GetOrderDetails(long orderId);
 }

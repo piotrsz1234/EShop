@@ -5,6 +5,9 @@ using EShop.Core.Extensions;
 using EShop.Core.Infrastructure.Repositories;
 using EShop.Dtos.Order.Dtos;
 using EShop.Dtos.Order.Models;
+using EShop.Dtos.Product.Dtos;
+using EShop.Dtos.User.Dtos;
+using EShop.Implementations.Core.Utils;
 
 namespace EShop.Implementations.Core.Domain;
 
@@ -14,21 +17,25 @@ public class OrderService : IOrderService
     private readonly IOrderRepository _orderRepository;
     private readonly IMailService _mailService;
     private readonly ICategoryRepository _categoryRepository;
+    private readonly IBasketRepository _basketRepository;
 
     public OrderService(IBasketProductRepository basketProductRepository, IOrderRepository orderRepository, IMailService mailService,
-        ICategoryRepository categoryRepository)
+        ICategoryRepository categoryRepository, IBasketRepository basketRepository)
     {
         _basketProductRepository = basketProductRepository;
         _orderRepository = orderRepository;
         _mailService = mailService;
         _categoryRepository = categoryRepository;
+        _basketRepository = basketRepository;
     }
 
     public async Task<long?> CreateOrderAsync(CreateOrderModel model)
     {
         try {
+            var basket = await _basketRepository.GetOneAsync(x => x.UserId == model.UserId && x.IsDeleted == false);
+            
             var products =
-                await _basketProductRepository.GetAllAsync(x => x.BasketId == model.BasketId && x.IsDeleted == false,
+                await _basketProductRepository.GetAllAsync(x => x.BasketId == basket.Id && x.IsDeleted == false,
                     x => x.Basket);
 
             var order = new Order() {
@@ -80,5 +87,20 @@ public class OrderService : IOrderService
         int number = int.Parse(lastOrderNumber.Substring(2));
 
         return $"OR{new string('0', 5 - (int)Math.Log10(number))}{number + 1}";
+    }
+
+    public async Task<OrderDto> GetOrderDetails(long orderId)
+    {
+        var order = await _orderRepository.GetOneAsync(orderId);
+
+        return new OrderDto() {
+            OrderId = order.Id,
+            OrderNumber = order.OrderNumber,
+            PaymentType = order.PaymentType,
+            Address = MappingHelper.Mapper.Map<AddressDto>(order.Address),
+            Items = MappingHelper.Mapper.Map<OrderItemDto[]>(order.OrderProduct),
+            OrderStatus = order.Status,
+            ShippingMethod = MappingHelper.Mapper.Map<ShippingMethodDto>(order.ShippingMethod)
+        };
     }
 }

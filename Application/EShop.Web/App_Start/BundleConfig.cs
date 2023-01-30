@@ -31,6 +31,9 @@ namespace EShop.Web
             bundles.Add(new ScriptBundle("~/bundles/Product/AddEdit").Include(
                 "~/Scripts/ViewScripts/Product/AddEditProduct.js"
             ));
+            bundles.Add(new ScriptBundle("~/bundles/Shared/Layout").Include(
+                "~/Scripts/ViewScripts/Shared/Layout.js"
+                ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                     "~/Content/bootstrap.css",

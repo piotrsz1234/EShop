@@ -1,0 +1,32 @@
+﻿@using EShop.Core.Common.Enums
+@using EShop.Web.Helpers
+
+@using (Html.BeginForm("CreateOrder", "Basket", FormMethod.Post)) {
+    <div class="row mb-1">
+        <div class="col-12">
+            <label class="label">Address</label>
+            @Html.DropDownList("AddressId", DropDownListHelper.GetAddresses(SessionHelper.LoggedUser.Id), new { @class = "form-select", })
+        </div>
+    </div>
+    <div class="row mb-1">
+        <div class="col-12">
+            <label class="label">Payment method</label>
+            <select name="PaymentType" class="form-select">
+                <option value="@PaymentType.Online">Online</option>
+                <option value="@PaymentType.OnDelivery">On delivery</option>
+            </select>
+        </div>
+    </div>
+    <div class="row mb-1">
+        <div class="col-12">
+            <label class="label">Shipping method</label>
+            @Html.DropDownList("ShippingMethodId", DropDownListHelper.GetShippingMethods(), new { @class = "form-select", })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary">Complete order</button>
+        </div>
+    </div>
+}

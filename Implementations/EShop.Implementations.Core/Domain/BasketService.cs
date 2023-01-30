@@ -68,7 +68,7 @@ namespace EShop.Implementations.Core.Domain
             }
         }
 
-        public async Task<bool> RemoveItemFromBasketAsync(long userId, long productId)
+        public async Task<bool> RemoveItemFromBasketAsync(long userId, long productId, bool onlyOne=false)
         {
             try {
                 var user = await _userRepository.GetOneAsync(userId, x => x.Baskets);
@@ -79,7 +79,10 @@ namespace EShop.Implementations.Core.Domain
                 var toBeRemoved = basket.BasketProducts.FirstOrDefault(x => x.IsDeleted == false && x.ProductId == productId);
 
                 if (toBeRemoved is null) return false;
-                basket.BasketProducts.Remove(toBeRemoved);
+
+                if (!onlyOne)
+                    _basketProductRepository.Remove(toBeRemoved);
+                else toBeRemoved.Count--;
 
                 await _basketProductRepository.SaveChangesAsync();
 
@@ -93,7 +96,7 @@ namespace EShop.Implementations.Core.Domain
         {
             try {
                 var data = await _basketProductRepository.GetAllAsync(x => x.IsDeleted == false 
-                                                                           && x.Basket.IsDeleted == false && x.Basket.UserId == userId,
+                                                                           && x.Basket.IsDeleted == false && x.Basket.UserId == userId && x.Product.IsDeleted == false,
                     x => x.Product);
 
                 return data.Select(x => new BasketProductDto() {

@@ -1,9 +1,12 @@
 ﻿@using EShop.Web.Helpers
 @model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.Order.Dtos.CategoryDto>
 
-<p>
-    @Html.ActionLink("Create New Category", "AddEdit", "Category")
-</p>
+@if (SessionHelper.LoggedUser?.IsAdmin == true) {
+    <p>
+        @Html.ActionLink("Create New Category", "AddEdit", "Category")
+    </p>
+}
+
 <table class="table">
     <thead>
     <tr>
@@ -21,7 +24,7 @@
     <tbody>
     @foreach (var item in Model) {
         <tr>
-            <th>@item.Name</th>
+            <th><a class="btn btn-primary" href="/Product/ProductListByCategory?categoryId=@item.Id">@item.Name</a></th>
             <td>@item.OwnerCategoryName</td>
             <td>@item.ProductCount</td>
             <td>@item.CategoryCount</td>
@@ -39,7 +42,7 @@
                     </td>
                 } else {
                     <td>
-                        @Html.ActionLink("Edit", "AddEdit", "Category", new { categoryId = item.Id }, null)
+                        @Html.ActionLink("Edit", "AddEdit", "Category", new { categoryId = item.Id }, new {@class="btn btn-primary"})
                     </td>
                     <td>
                         <button class="btn btn-danger disabled">Delete</button>

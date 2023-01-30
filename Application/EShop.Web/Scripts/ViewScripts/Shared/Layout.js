@@ -3,6 +3,18 @@ class Layout {
         this.init = () => {
             //$('form-select').
         };
+        this.addToBasket = (productId) => {
+            $.ajax({
+                url: '/Basket/AddOneMore',
+                method: 'POST',
+                data: {
+                    productId: productId
+                },
+                //dataType: 'application/json'
+            }).then(() => {
+                console.log('test');
+            });
+        };
     }
 }
 const layout = new Layout();

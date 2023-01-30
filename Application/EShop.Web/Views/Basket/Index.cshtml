@@ -1,0 +1,47 @@
+﻿@model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.Basket.Dtos.BasketProductDto>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col"></th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Count</th>
+        <th scope="col">Add one more</th>
+        <th scope="col">Remove one</th>
+        <th scope="col">Remove all</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src="/File/DownloadFile?fileId=@item.FileId" style="max-width: 60px;"/>
+            </td>
+            <td>@item.ProductName</td>
+            <td>@item.Count</td>
+            <td>
+                <form action="/Basket/AddOneMore" method="post">
+                    <input type="hidden" name="productId" value="@item.ProductId"/>
+                    <button class="btn btn-success">Add one more</button>
+                </form>
+            </td>
+            <td>
+                <form action="/Basket/RemoveOne" method="post">
+                    <input type="hidden" name="productId" value="@item.ProductId"/>
+                    <button class="btn btn-secondary">Remove</button>
+                </form>
+            </td>
+            <td>
+                <form action="/Basket/RemoveAll" method="post">
+                    <input type="hidden" name="productId" value="@item.ProductId"/>
+                    <button class="btn btn-danger">Remove all</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@if (Model.Count > 0) {
+    <a href="/Basket/CreateOrder" class="btn btn-primary">Buy</a>
+}

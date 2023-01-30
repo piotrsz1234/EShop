@@ -1,9 +1,12 @@
 ﻿@using EShop.Web.Helpers
 @model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.Product.Dtos.ProductDto>
 
-<div class="row">
-    <a class="btn btn-primary" href="/Product/AddEdit">Add product</a>
-</div>
+@if (SessionHelper.LoggedUser?.IsAdmin == true) {
+    <div class="row">
+        <a class="btn btn-primary" href="/Product/AddEdit">Add product</a>
+    </div>
+}
+
 @{ int i = 0; }
 @foreach (var product in Model) {
     if (i > 0 && i % 4 == 0) {
@@ -26,6 +29,9 @@
                 <a href="#" class="btn btn-primary">See details</a>
                 @if (SessionHelper.LoggedUser?.IsAdmin == true) {
                     <a href="/Product/AddEdit?productId=@product.Id" class="btn btn-primary">Edit</a>
+                }
+                @if (SessionHelper.LoggedUser != null) {
+                    <button class="btn btn-secondary" onclick="layout.addToBasket(@product.Id)">Add to basket</button>
                 }
             </div>
         </div>

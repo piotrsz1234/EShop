@@ -114,10 +114,15 @@ namespace EShop.Web.Controllers
             return View(products);
         }
 
-        //public async Task<ActionResult> ProductList(long categoryId = 0)
-        //{
-        //    var products = await _productService.GetAllFromCategoryAsync(categoryId);
-        //    return View(products);
-        //}
+        public async Task<ActionResult> ProductListByCategory(long categoryId)
+        {
+            var products = await _productService.GetAllFromCategoryAsync(categoryId);
+            return View("ProductList", products);
+        }
+        
+        public ActionResult Details(long productid)
+        {
+            return View();
+        }
     }
 }

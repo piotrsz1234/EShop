@@ -9,7 +9,7 @@ public sealed class OrderDto
     public long OrderId { get; set; }
     public string OrderNumber { get; set; }
     public AddressDto Address { get; set; }
-    public IReadOnlyCollection<ProductDto> Items { get; set; }
+    public IReadOnlyCollection<OrderItemDto> Items { get; set; }
     public ShippingMethodDto ShippingMethod { get; set; }
     public PaymentType PaymentType { get; set; }
     public OrderStatus OrderStatus { get; set; }
