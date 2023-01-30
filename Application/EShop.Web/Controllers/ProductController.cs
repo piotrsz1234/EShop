@@ -43,7 +43,7 @@ namespace EShop.Web.Controllers
                 Name = model.Name,
                 CategoryId = model.CategoryId,
                 Description = model.Description,
-                Price = 10
+                Price = decimal.Parse((model.Price).Replace(".", ",")),
             };
 
             if (smallImage.ContentLength > 0)
@@ -105,7 +105,6 @@ namespace EShop.Web.Controllers
         public async Task<ActionResult> ProductList(long categoryId = 0)
         {
             var products = await _productService.GetAllFromCategoryAsync(categoryId);
-
             return View(products);
         }
     }
