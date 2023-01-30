@@ -12,6 +12,7 @@ using EShop.Web.Models;
 using System.Linq;
 using EShop.Implementations.Core.Domain;
 using EShop.Dtos.Order.Dtos;
+using System.Diagnostics;
 
 namespace EShop.Web.Controllers
 {
@@ -28,22 +29,10 @@ namespace EShop.Web.Controllers
             _categoryRepository = categoryRepository;
         }
 
-
-        //public async Task<ActionResult> AddEdit(long? categoryId = null)
-        //{
-        //    var category = categoryId is null ? null : await _categoryService.GetCategoryAsync(categoryId.Value);
-        //    return View(category);
-        //}
-
         public async Task<ActionResult> AddEdit(long? productId = null)
         {
             var product = productId is null ? null : await _productService.GetProductAsync(productId.Value);
-            //return View(product);
-
-
             List<Category> categories = (await _categoryRepository.GetAllAsync()).ToList();
-            //return View(categories);
-
             return View(System.Tuple.Create(product, categories));
         }
 
@@ -59,7 +48,9 @@ namespace EShop.Web.Controllers
                 CategoryId = model.CategoryId,
                 Description = model.Description,
                 Price = decimal.Parse((model.Price).Replace(".", ",")),
+                Id = model.OldVersionProductId
             };
+            Debug.WriteLine("OldVersion: " + model.OldVersionProductId.ToString());
 
             if (smallImage.ContentLength > 0)
             {
