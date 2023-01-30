@@ -2,7 +2,8 @@
 {
     public interface IBasketService
     {
-        Task<bool> AddProductToBasket(long userId, long productId, int count);
+        Task<bool> AddProductToBasketAsync(long userId, long productId, int count);
         Task<bool> EditBasketAsync(long userId, long productId, int count);
+        Task<bool> RemoveItemFromBasketAsync(long userId, long productId);
     }
 }
