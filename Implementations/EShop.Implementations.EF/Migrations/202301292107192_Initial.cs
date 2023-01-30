@@ -173,7 +173,7 @@
                         InsertDateUtc = c.DateTime(nullable: false),
                         ModificationDateUtc = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
+                .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
@@ -183,16 +183,15 @@
                     {
                         UserId = c.Long(nullable: false),
                         RoleId = c.Long(nullable: false),
-                        Id = c.Long(nullable: false),
+                        Id = c.Long(nullable: false, identity: true),
                         IsDeleted = c.Boolean(nullable: false),
                         InsertDateUtc = c.DateTime(nullable: false),
                         ModificationDateUtc = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId)
-                .Index(t => t.RoleId);
+                .Index(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetRoles",

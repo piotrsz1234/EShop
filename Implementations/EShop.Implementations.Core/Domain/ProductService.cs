@@ -25,12 +25,10 @@ namespace EShop.Implementations.Core.Domain
 
         public async Task<ProductDto> GetProductAsync(long productId)
         {
-            try
-            {
+            try {
                 var product = await _productRepository.GetOneAsync(productId);
 
-                return new ProductDto()
-                {
+                return new ProductDto() {
                     CategoryId = product.CategoryId,
                     Id = product.Id,
                     Description = product.Description,
@@ -41,9 +39,7 @@ namespace EShop.Implementations.Core.Domain
                     BigImageId = product.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.MainImage)?.Id,
                     SmallImageId = product.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.SmallImage)?.Id
                 };
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 return null;
             }
         }
@@ -52,12 +48,12 @@ namespace EShop.Implementations.Core.Domain
         {
             try {
                 var item = model.Id.HasValue ? await _productRepository.GetOneAsync(model.Id.Value) : null;
-
+                
                 var product = MappingHelper.Mapper.Map<Product>(model);
-
                 product.InsertDateUtc = DateTime.UtcNow;
                 product.ModificationDateUtc = DateTime.UtcNow;
-
+                product.OldVersionProductId = item?.Id;
+                
                 if (item != null) {
                     _productRepository.Remove(item);
                 }
@@ -66,6 +62,20 @@ namespace EShop.Implementations.Core.Domain
                     product.ProductFiles.Add(new ProductFile() {
                         FileId = fileId
                     });
+                }
+
+                if (item != null) {
+                    foreach (var file in item.ProductFiles) {
+                        if (file.File.Type == FileType.MainImage && product.ProductFiles.Any(x => x.IsDeleted == false && x.File?.Type == FileType.MainImage))
+                            continue;
+
+                        if (file.File.Type == FileType.SmallImage && product.ProductFiles.Any(x => x.IsDeleted == false && x.File?.Type == FileType.SmallImage))
+                            continue;
+
+                        product.ProductFiles.Add(new ProductFile() {
+                            FileId = file.FileId
+                        });
+                    }
                 }
 
                 await _productRepository.AddAsync(product);
@@ -85,9 +95,9 @@ namespace EShop.Implementations.Core.Domain
                 var item = await _productRepository.GetOneAsync(id);
 
                 if (item is null) return false;
-                
+
                 _productRepository.Remove(item);
-                
+
                 return true;
             } catch (Exception) {
                 return false;
@@ -98,11 +108,13 @@ namespace EShop.Implementations.Core.Domain
         {
             try {
                 var categories = await _categoryRepository.GetAllWithDependentAsync(categoryId);
-                var data = await _productRepository.GetAllAsync(x => x.IsHidden == false && x.IsDeleted == false
-                                                                                         && x.IsInTrash == false && categories.Contains(x.CategoryId));
 
-                return data.Select(x => new ProductDto()
-                {
+                var data = await _productRepository.GetAllAsync(x => x.IsHidden == false
+                                                                     && x.IsDeleted == false
+                                                                     && x.IsInTrash == false
+                                                                     && categories.Contains(x.CategoryId));
+
+                return data.Select(x => new ProductDto() {
                     CategoryId = x.CategoryId,
                     Id = x.Id,
                     Description = x.Description,
@@ -113,22 +125,19 @@ namespace EShop.Implementations.Core.Domain
                     BigImageId = x.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.MainImage)?.Id,
                     SmallImageId = x.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.SmallImage)?.Id
                 }).ToList();
-            }
-            catch
-            {
+            } catch {
                 return null;
             }
         }
 
         public async Task<IReadOnlyCollection<ProductDto>> GetAllProductsAsync()
         {
-            try
-            {
-                var data = await _productRepository.GetAllAsync(x => x.IsHidden == false && x.IsDeleted == false
-                                                                                         && x.IsInTrash == false);
+            try {
+                var data = await _productRepository.GetAllAsync(x => x.IsHidden == false
+                                                                     && x.IsDeleted == false
+                                                                     && x.IsInTrash == false);
 
-                return data.Select(x => new ProductDto()
-                {
+                return data.Select(x => new ProductDto() {
                     CategoryId = x.CategoryId,
                     Id = x.Id,
                     Description = x.Description,
@@ -139,9 +148,7 @@ namespace EShop.Implementations.Core.Domain
                     BigImageId = x.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.MainImage)?.Id,
                     SmallImageId = x.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.SmallImage)?.Id
                 }).ToList();
-            }
-            catch
-            {
+            } catch {
                 return null;
             }
         }

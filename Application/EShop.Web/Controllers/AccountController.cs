@@ -37,17 +37,17 @@ namespace EShop.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> SignUp(Registration registration)
         {
-            if (ModelState.IsValid)
-            {
-                await _shopSignInManager.SignUp(new User()
-                {
+            if (ModelState.IsValid) {
+                var user = new User() {
                     Email = registration.Email,
                     UserName = registration.Username,
                     PasswordHash = registration.Password.CreateHash(),
                     PhoneNumber = registration.PhoneNumber,
                     InsertDateUtc = DateTime.UtcNow,
                     ModificationDateUtc = DateTime.UtcNow,
-                });
+                };
+
+                await _shopSignInManager.SignUp(user);
 
                 return RedirectToAction("Message");
             }
@@ -80,10 +80,10 @@ namespace EShop.Web.Controllers
                 {
                     Id = user.Id,
                     UserName = user.UserName,
-                    IsAdmin = user.Roles.Any(x => x.Role.IsAdmin)
+                    IsAdmin = user.UserRole.Any(x => x.Role.IsAdmin)
                 };
                 
-                return RedirectToAction("", "Product");
+                return RedirectToAction("ProductList", "Product");
             }
 
             return View();

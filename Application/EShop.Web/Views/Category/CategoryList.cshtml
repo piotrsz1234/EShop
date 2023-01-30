@@ -1,4 +1,5 @@
-﻿@model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.Order.Dtos.CategoryDto>
+﻿@using EShop.Web.Helpers
+@model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.Order.Dtos.CategoryDto>
 
 <p>
     @Html.ActionLink("Create New Category", "AddEdit", "Category")
@@ -10,8 +11,11 @@
         <th scope="col">Depends on</th>
         <th scope="col">Direct product count</th>
         <th scope="col">Direct category dependencies</th>
-        <th scope="col">Edit</th>
-        <th scope="col">Remove</th>
+        @if (SessionHelper.LoggedUser?.IsAdmin == true) {
+            <th scope="col">Is hidden</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Remove</th>
+        }
     </tr>
     </thead>
     <tbody>
@@ -21,20 +25,26 @@
             <td>@item.OwnerCategoryName</td>
             <td>@item.ProductCount</td>
             <td>@item.CategoryCount</td>
-            @if (item.ProductCount == 0 && item.CategoryCount == 0) {
-                <td><a class="btn btn-primary" href="/Category/AddEdit?categoryId=@item.Id">Edit</a>
-                </td>
-                <td>
-                    <form action="/Category/Remove" method="post">
-                        <input type="hidden" name="categoryId" value="@item.Id" />
-                        <button class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-            } else {
-                <td>
-                    @Html.ActionLink("Edit", "AddEdit", "Category", new { categoryId = item.Id }, null)
-                </td>
-                <td><button class="btn btn-danger disabled">Delete</button></td>
+            @if (SessionHelper.LoggedUser?.IsAdmin == true) {
+                <td>@item.IsHidden.ToString()</td>
+                if (item.ProductCount == 0 && item.CategoryCount == 0) {
+                    <td>
+                        <a class="btn btn-primary" href="/Category/AddEdit?categoryId=@item.Id">Edit</a>
+                    </td>
+                    <td>
+                        <form action="/Category/Remove" method="post">
+                            <input type="hidden" name="categoryId" value="@item.Id"/>
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                } else {
+                    <td>
+                        @Html.ActionLink("Edit", "AddEdit", "Category", new { categoryId = item.Id }, null)
+                    </td>
+                    <td>
+                        <button class="btn btn-danger disabled">Delete</button>
+                    </td>
+                }
             }
         </tr>
     }

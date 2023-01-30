@@ -93,7 +93,9 @@ namespace EShop.Implementations.EF.Contexts
 
             builder.Entity<ShippingMethod>(entity => { entity.HasKey(e => e.Id); });
 
-            builder.Entity<UserRole>(entity => { entity.HasKey(e => e.Id); });
+            builder.Entity<UserRole>(entity => {
+                entity.HasKey(e => e.Id);
+            });
 
             builder.Entity<Basket>(entity =>
             {

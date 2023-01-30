@@ -1,11 +1,13 @@
-﻿@model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.Product.Dtos.ProductDto>
+﻿@using EShop.Web.Helpers
+@model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.Product.Dtos.ProductDto>
 
+<div class="row">
+    <a class="btn btn-primary" href="/Product/AddEdit">Add product</a>
+</div>
 @{ int i = 0; }
-@foreach (var product in Model)
-{
-    if (i > 0 && i % 4 == 0)
-    {
-        @: <div class="row">
+@foreach (var product in Model) {
+    if (i > 0 && i % 4 == 0) {
+        @:<div class="row">
     }
 
     <div class="column">
@@ -22,12 +24,14 @@
                     <li class="list-group-item">Vat = @product.VatValue</li>
                 </ul>
                 <a href="#" class="btn btn-primary">See details</a>
+                @if (SessionHelper.LoggedUser?.IsAdmin == true) {
+                    <a href="/Product/AddEdit?productId=@product.Id" class="btn btn-primary">Edit</a>
+                }
             </div>
         </div>
     </div>
 
-    if (i > 0 && i % 4 == 0)
-    {
+    if (i > 0 && i % 4 == 0) {
         @: </div>
         i++;
     }
