@@ -2,6 +2,7 @@
 using EShop.Core.Domain;
 using EShop.Core.Entities;
 using EShop.Core.Infrastructure.Repositories;
+using EShop.Dtos.File.Dtos;
 using EShop.Dtos.Order.Dtos;
 using EShop.Dtos.Product;
 using EShop.Dtos.Product.Dtos;
@@ -29,6 +30,8 @@ namespace EShop.Implementations.Core.Domain
             try {
                 var product = await _productRepository.GetOneAsync(productId);
 
+                var small = product.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.SmallImage)?.Id;
+                
                 return new ProductDto() {
                     CategoryId = product.CategoryId,
                     Id = product.Id,
@@ -37,8 +40,14 @@ namespace EShop.Implementations.Core.Domain
                     Price = product.Price,
                     CategoryName = product.Category.Name,
                     VatValue = product.VatValue,
-                    BigImageId = product.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.MainImage)?.Id,
-                    SmallImageId = product.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.SmallImage)?.Id
+                    BigImageId = product.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.MainImage)?.File?.Id,
+                    SmallImageId = product.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.SmallImage)?.File?.Id,
+                    AllFiles = product.ProductFiles.Where(x => x.File.Type != FileType.MainImage && x.File.Type != FileType.SmallImage)
+                        .Select(x => new FileDto() {
+                            Id = x.File.Id,
+                            Description = x.File.Description,
+                            FileName = x.File.DisplayFileName
+                        }).ToArray(),
                 };
             } catch (Exception e) {
                 return null;
@@ -49,12 +58,12 @@ namespace EShop.Implementations.Core.Domain
         {
             try {
                 var item = model.Id.HasValue ? await _productRepository.GetOneAsync(model.Id.Value) : null;
-                
+
                 var product = MappingHelper.Mapper.Map<Product>(model);
                 product.InsertDateUtc = DateTime.UtcNow;
                 product.ModificationDateUtc = DateTime.UtcNow;
                 product.OldVersionProductId = item?.Id;
-                
+
                 if (item != null) {
                     _productRepository.Remove(item);
                 }

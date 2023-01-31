@@ -1,4 +1,6 @@
-﻿namespace EShop.Dtos.Product.Dtos;
+﻿using EShop.Dtos.File.Dtos;
+
+namespace EShop.Dtos.Product.Dtos;
 
 public sealed class ProductDto
 {
@@ -14,4 +16,5 @@ public sealed class ProductDto
     public string CategoryName { get; set; }
     public long? SmallImageId { get; set; }
     public long? BigImageId { get; set; }
+    public IReadOnlyCollection<FileDto> AllFiles { get; set; }
 }

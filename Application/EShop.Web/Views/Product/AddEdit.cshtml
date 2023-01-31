@@ -1,7 +1,5 @@
 ﻿@Scripts.Render("~/bundles/Product/AddEdit")
-
-@using EShop.Core.Entities;
-@model Tuple<EShop.Dtos.Product.Dtos.ProductDto, List<Category>>
+@model Tuple<EShop.Dtos.Product.Dtos.ProductDto, List<EShop.Core.Entities.Category>>
 
 <div class="row">
     <div class="col-sm-8 col-sm-push-2">
@@ -12,6 +10,18 @@
             {
                 <input type="hidden" name="OldVersionProductId" value="@Model.Item1.Id" />
             }
+
+            if (Model.Item1 == null || Model.Item1.IsHidden) {
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input class="form-check-input" type="checkbox" name="HiddenText" id="flexCheckDefault" @(Model.Item1 != null && Model.Item1.IsHidden ? "checked" : string.Empty)>
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Is Hidden
+                        </label>
+                    </div>
+                </div>
+            }
+            
             <div class="row">
                 <div class="col-sm-12">
                     <label class="form-label">Name</label>

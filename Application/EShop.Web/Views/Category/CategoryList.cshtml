@@ -1,4 +1,5 @@
 ﻿@using EShop.Web.Helpers
+@using System.Activities.Statements
 @model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.Order.Dtos.CategoryDto>
 
 @if (SessionHelper.LoggedUser?.IsAdmin == true) {
@@ -7,6 +8,10 @@
     </p>
 }
 
+@if (Request.Params["categoryId"]?.Length > 0) {
+    <a href="/File/CategoryPricing?categoryId=@Request.Params["categoryId"]">Pricing</a>
+}
+{}
 <table class="table">
     <thead>
     <tr>

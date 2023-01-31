@@ -1,33 +1,33 @@
 ﻿@using EShop.Web.Helpers
 @model EShop.Dtos.Order.Dtos.CategoryDto
 
-@using(Html.BeginForm("AddEdit", "Category", FormMethod.Post))
-{
+@using (Html.BeginForm("AddEdit", "Category", FormMethod.Post)) {
+    if (Model?.Id > 0) {
+        <input type="hidden" name="Id" value="@Model.Id"/>
+    }
 
-if (Model?.Id > 0) {
-    <input type="hidden" name="Id" value="@Model.Id"/>
-}
-
-<div class="row">
-    <div class="col-sm-12">
-        <label class="form-label">Name</label>
-        <input class="form-control" name="Name" value="@(Model != null ? Model.Name : string.Empty)" required/>
+    <div class="row">
+        <div class="col-sm-12">
+            <label class="form-label">Name</label>
+            <input class="form-control" name="Name" value="@(Model != null ? Model.Name : string.Empty)" required/>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        <input class="form-check-input" type="checkbox" name="HiddenText" id="flexCheckDefault" @(Model != null && Model.IsHidden ? "checked" : string.Empty)>
-        <label class="form-check-label" for="flexCheckDefault">
-            Is Hidden
-        </label>
-    </div>
-</div>
+    if(Model == null || Model.IsHidden) {
+        <div class="row">
+            <div class="col-sm-12">
+                <input class="form-check-input" type="checkbox" name="HiddenText" id="flexCheckDefault" @(Model != null && Model.IsHidden ? "checked" : string.Empty)>
+                <label class="form-check-label" for="flexCheckDefault">
+                    Is Hidden
+                </label>
+            </div>
+        </div>
+    }
     <div class="row">
         <div class="col-sm-12">
             @Html.DropDownList("OwnerCategoryId", DropDownListHelper.GetCategories(Model?.OwnerCategoryId), new { @class = "form-select", @value = Model?.OwnerCategoryId })
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-sm-12">
             <button class="btn btn-primary">Save</button>
@@ -36,11 +36,11 @@ if (Model?.Id > 0) {
 }
 
 <br/>
-<br />
-<br />
-<br />
-<br />
-<br />
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 <p>
     @Html.ActionLink("Back to category list", "CategoryList", "Category")
 </p>
