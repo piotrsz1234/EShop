@@ -124,5 +124,26 @@ namespace EShop.Web.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public async Task<ActionResult> Remove(long? productId = null)
+        {
+            var product = productId is null ? null : await _productService.GetProductAsync(productId.Value);
+            return View(product);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Remove(long productId)
+        {
+            try
+            {
+                await _productService.RemoveProductAsync(productId);
+            }
+            finally
+            {
+
+            }
+            return RedirectToAction("ProductList");
+        }
     }
 }

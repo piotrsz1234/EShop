@@ -26,13 +26,24 @@
                     <li class="list-group-item">Price = @product.Price</li>
                     <li class="list-group-item">Vat = @product.VatValue</li>
                 </ul>
-                <a href="#" class="btn btn-primary">See details</a>
-                @if (SessionHelper.LoggedUser?.IsAdmin == true) {
-                    <a href="/Product/AddEdit?productId=@product.Id" class="btn btn-primary">Edit</a>
-                }
-                @if (SessionHelper.LoggedUser != null) {
-                    <button class="btn btn-secondary" onclick="layout.addToBasket(@product.Id)">Add to basket</button>
-                }
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="#" class="btn btn-primary">See details</a>
+                    </li>
+                    <li class="list-group-item">
+                        @if (SessionHelper.LoggedUser?.IsAdmin == true)
+                        {
+                            <a href="/Product/AddEdit?productId=@product.Id" class="btn btn-primary">Edit</a>
+                            <a href="/Product/Remove?productId=@product.Id" class="btn btn-danger">Remove</a>
+                        }
+                    </li>
+                    <li class="list-group-item">
+                        @if (SessionHelper.LoggedUser != null)
+                        {
+                            <button class="btn btn-secondary" onclick="layout.addToBasket(@product.Id)">Add to basket</button>
+                        }
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

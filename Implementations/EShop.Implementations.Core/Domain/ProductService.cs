@@ -8,6 +8,7 @@ using EShop.Dtos.Product.Dtos;
 using EShop.Dtos.Product.Models;
 using EShop.Dtos.Product.Results;
 using EShop.Implementations.Core.Utils;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace EShop.Implementations.Core.Domain
 {
@@ -89,19 +90,29 @@ namespace EShop.Implementations.Core.Domain
             }
         }
 
-        public async Task<bool> RemoveProductAsync(long id)
+        //public async Task<bool> RemoveProductAsync(long id)
+        //{
+        //    try
+        //    {
+        //        var item = await _productRepository.GetOneAsync(id);
+
+        //        if (item is null) return false;
+
+        //        _productRepository.Remove(item);
+
+        //        return true;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return false;
+        //    }
+        //}
+
+        public async Task RemoveProductAsync(long productId)
         {
-            try {
-                var item = await _productRepository.GetOneAsync(id);
+            _productRepository.Remove(await _productRepository.GetOneAsync(productId));
 
-                if (item is null) return false;
-
-                _productRepository.Remove(item);
-
-                return true;
-            } catch (Exception) {
-                return false;
-            }
+            await _productRepository.SaveChangesAsync();
         }
 
         public async Task<IReadOnlyCollection<ProductDto>> GetAllFromCategoryAsync(long categoryId)

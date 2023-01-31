@@ -10,7 +10,8 @@ namespace EShop.Core.Domain
     {
         Task<ProductDto> GetProductAsync(long productId);
         Task<AddEditProductResult> AddEditProductAsync(AddEditProductModel model);
-        Task<bool> RemoveProductAsync(long id);
+        //Task<bool> RemoveProductAsync(long id);
+        Task RemoveProductAsync(long productId);
         Task<IReadOnlyCollection<ProductDto>> GetAllFromCategoryAsync(long categoryId);
         Task<IReadOnlyCollection<ProductDto>> GetAllProductsAsync();
     }
