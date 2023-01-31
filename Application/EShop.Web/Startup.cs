@@ -1,6 +1,8 @@
-﻿using EShop.Web;
+﻿using EShop.Core.Entities;
+using EShop.Web;
 using EShop.Web.Identity;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
@@ -28,13 +30,15 @@ namespace EShop.Web
             // Configure the sign in cookie
             app.UseCookieAuthentication(new CookieAuthenticationOptions {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
+                LoginPath = new PathString("/Account/SignIn"),
+                LogoutPath = new PathString("/Account/SignOut"),
                 Provider = new CookieAuthenticationProvider {
                     // Enables the application to validate the security stamp when the user logs in.
                     // This is a security feature which is used when you change a password or add an external login to your account.  
-                    // OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ShopUserManager, User>(
-                    //     validateInterval: TimeSpan.FromMinutes(30),
-                    //     regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ShopUserManager, User, long>(
+                        validateInterval: TimeSpan.FromMinutes(30),
+                        regenerateIdentityCallback: (manager, user) => manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie),
+                        getUserIdCallback:(id)=>(id.GetUserId<int>()))
                 }
             });
 

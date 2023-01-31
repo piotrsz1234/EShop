@@ -60,7 +60,7 @@ namespace EShop.Implementations.Core.Domain
 
         public async Task<Tuple<long, long>> UploadBigImageAndResizeAsync(byte[] fileBytes, string originalName, string fileDescription)
         {
-            var bigImageId = await UploadFileAsync(fileBytes, originalName, fileDescription);
+            var bigImageId = await UploadFileAsync(fileBytes, originalName, fileDescription, FileType.MainImage);
             using (var stream = new MemoryStream(fileBytes)) {
                 using (var image = Image.FromStream(stream)) {
                     Bitmap output;

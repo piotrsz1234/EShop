@@ -38,5 +38,10 @@ namespace EShop.Web.Identity
 
             return user;
         }
+
+        public void Logout()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+        }
     }
 }

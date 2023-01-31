@@ -143,5 +143,13 @@ namespace EShop.Web.Controllers
 
             return View(user);
         }
+
+        [Authorize]
+        public ActionResult SignOut()
+        {
+            _shopSignInManager.Logout();
+
+            return RedirectToAction("SignIn");
+        }
     }
 }

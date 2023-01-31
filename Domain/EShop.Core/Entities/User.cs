@@ -2,6 +2,7 @@
 using EShop.Core.Entities.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Security.Claims;
 
 namespace EShop.Core.Entities
 {

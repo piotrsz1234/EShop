@@ -12,6 +12,7 @@ using EShop.Web.Models;
 using System.Linq;
 using EShop.Implementations.Core.Domain;
 using EShop.Dtos.Order.Dtos;
+using EShop.Web.Helpers;
 using System.Diagnostics;
 
 namespace EShop.Web.Controllers
@@ -110,13 +111,13 @@ namespace EShop.Web.Controllers
 
         public async Task<ActionResult> ProductList()
         {
-            var products = await _productService.GetAllProductsAsync();
+            var products = await _productService.GetAllProductsAsync(SessionHelper.LoggedUser?.IsAdmin ?? false);
             return View(products);
         }
 
         public async Task<ActionResult> ProductListByCategory(long categoryId)
         {
-            var products = await _productService.GetAllFromCategoryAsync(categoryId);
+            var products = await _productService.GetAllFromCategoryAsync(categoryId, SessionHelper.LoggedUser?.IsAdmin ?? false);
             return View("ProductList", products);
         }
 

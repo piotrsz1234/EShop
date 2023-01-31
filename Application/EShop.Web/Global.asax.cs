@@ -1,4 +1,5 @@
 ﻿using EShop.Implementations.EF.Contexts;
+using Microsoft.Owin;
 using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Optimization;

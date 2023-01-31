@@ -20,5 +20,12 @@ namespace EShop.Web.Controllers
 
             return File(result.Item1, MimeMapping.GetMimeMapping(result.Item2), result.Item2);
         }
+
+        public async Task<ActionResult> CategoryPricing(long categoryId)
+        {
+            var file = await _fileService.CreatePdfPricingFileForCategoryAsync(categoryId);
+
+            return File(file, "application/json", "Pricing.pdf");
+        }
     }
 }
