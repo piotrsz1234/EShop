@@ -9,7 +9,7 @@ namespace EShop.Implementations.Core.Utils
     public static class MappingHelper
     {
         private static IMapper _mapper;
-        
+
         public static IMapper Mapper {
             get {
                 if (_mapper is null) Mapper = new Mapper(GetConfiguration());
@@ -18,7 +18,7 @@ namespace EShop.Implementations.Core.Utils
             }
             set => _mapper = value;
         }
-        
+
         private static MapperConfiguration GetConfiguration()
         {
             return new MapperConfiguration(cfg => {
@@ -26,8 +26,16 @@ namespace EShop.Implementations.Core.Utils
                     .ForMember(dest => dest.Id, opt => opt.Ignore());
 
                 cfg.CreateMap<Product, ProductDto>()
-                    .ForMember(dest => dest.BigImageId, opt => opt.MapFrom(src => src.ProductFiles.First(x => x.File.Type == FileType.MainImage).FileId))
-                    .ForMember(dest => dest.SmallImageId, opt => opt.MapFrom(src => src.ProductFiles.First(x => x.File.Type == FileType.SmallImage).FileId));
+                    .ForMember(dest => dest.BigImageId,
+                        opt => opt.MapFrom(
+                            src => src.ProductFiles.Any(x => x.File.Type == FileType.MainImage)
+                                ? (long?)src.ProductFiles.First(x => x.File.Type == FileType.MainImage).FileId
+                                : null))
+                    .ForMember(dest => dest.SmallImageId,
+                        opt => opt.MapFrom(
+                            src => src.ProductFiles.Any(x => x.File.Type == FileType.SmallImage)
+                                ? (long?)src.ProductFiles.First(x => x.File.Type == FileType.SmallImage).FileId
+                                : null));
             });
         }
     }

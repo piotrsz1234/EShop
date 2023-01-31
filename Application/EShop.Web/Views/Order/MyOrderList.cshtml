@@ -1,0 +1,29 @@
+﻿@model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.Order.Dtos.OrderDto>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Order number</th>
+        <th scope="col">Status</th>
+        <th scope="col">ViewDetails</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>@item.OrderNumber</td>
+            <td>@item.OrderStatus.ToString()</td>
+            <td>
+                <a href="/Order/ViewOrder?orderId=@item.OrderId">View details</a>
+            </td>
+            <td>
+                <form action="/Order/AddItemsFromOrder" method="post">
+                    <input type="hidden" name="orderId" value="@item.OrderId"/>
+                    <button class="btn btn-danger">Add to basket</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,39 @@
+﻿@using EShop.Core.Common.Enums
+@model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.Order.Dtos.OrderDto>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Order number</th>
+        <th scope="col">Current Status</th>
+        <th scope="col">Set to next status</th>
+        <th scope="col">Cancel order</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>@item.OrderNumber</td>
+            <td>@item.OrderStatus.ToString()</td>
+            <td>
+                <form action="/Order/SetNextStatus" method="post">
+                    <input type="hidden" name="orderId" value="@item.OrderId"/>
+                    <button class="btn btn-primary">
+                        @if (item.OrderStatus == OrderStatus.Cancelled) {
+                            @OrderStatus.New
+                        } else {
+                            @((OrderStatus)((int)item.OrderStatus + 1))
+                        }
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form action="/Order/CancelOrder" method="post">
+                    <input type="hidden" name="orderId" value="@item.OrderId"/>
+                    <button class="btn btn-danger">Cancel order</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

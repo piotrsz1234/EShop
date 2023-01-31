@@ -8,6 +8,7 @@ using System.Web.Mvc;
 namespace EShop.Web.Controllers
 {
     [Authorize]
+    [EnforceUser]
     public class BasketController : Controller
     {
         private readonly IBasketService _basketService;

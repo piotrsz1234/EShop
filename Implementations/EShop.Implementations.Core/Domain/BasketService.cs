@@ -1,4 +1,5 @@
-﻿using EShop.Core.Domain;
+﻿using EShop.Core.Common.Enums;
+using EShop.Core.Domain;
 using EShop.Core.Entities;
 using EShop.Core.Infrastructure.Repositories;
 using EShop.Dtos.Basket.Dtos;
@@ -9,11 +10,13 @@ namespace EShop.Implementations.Core.Domain
     {
         private readonly IUserRepository _userRepository;
         private readonly IBasketProductRepository _basketProductRepository;
+        private readonly IOrderRepository _orderRepository;
 
-        public BasketService(IUserRepository userRepository, IBasketProductRepository basketProductRepository)
+        public BasketService(IUserRepository userRepository, IBasketProductRepository basketProductRepository, IOrderRepository orderRepository)
         {
             _userRepository = userRepository;
             _basketProductRepository = basketProductRepository;
+            _orderRepository = orderRepository;
         }
 
         public async Task<bool> AddProductToBasketAsync(long userId, long productId, int count)
@@ -103,12 +106,23 @@ namespace EShop.Implementations.Core.Domain
                     ProductId = x.ProductId,
                     ProductName = x.Product.Name,
                     Count = x.Count,
+                    FileId = x.Product.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.SmallImage)?.FileId,
                 }).ToList();
             } finally{}
 
             return Array.Empty<BasketProductDto>();
         }
-        
+
+        public async Task AddItemsFromOrderAsync(long orderId, long userId)
+        {
+            var order =await _orderRepository.GetOneAsync(orderId);
+            var products = order.OrderProduct.Where(x => x.IsDeleted == false && x.Product.IsDeleted == false).ToArray();
+            
+            foreach (var items in products) {
+                await AddProductToBasketAsync(userId, items.ProductId, (int)items.Count);
+            }
+        }
+
         private async Task<Basket> AddBasketForUserAsync(User user)
         {
             var basket = new Basket();

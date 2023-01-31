@@ -2,6 +2,7 @@
 using EShop.Core.Entities;
 using EShop.Core.Infrastructure.Repositories;
 using EShop.Implementations.EF.Contexts;
+using iText.Kernel.Pdf.Tagging;
 
 namespace EShop.Implementations.Core.Infrastructure.Repositories
 {
@@ -26,6 +27,11 @@ namespace EShop.Implementations.Core.Infrastructure.Repositories
                 .Include(x => x.Category).Include(x => x.ProductFiles)
                 .Include("ProductFiles.File").ToListAsync();
             
+        }
+
+        public override void Remove(Product entity)
+        {
+            entity.IsInTrash = true;
         }
     }
 }

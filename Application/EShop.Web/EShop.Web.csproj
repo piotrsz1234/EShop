@@ -220,6 +220,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DropDownListHelper.cs" />
+    <Compile Include="Helpers\EnforceUser.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Identity\ShopSignInManager.cs" />
     <Compile Include="Identity\ShopUserStore.cs" />
@@ -256,6 +257,8 @@
     <Content Include="Views\Basket\Index.cshtml" />
     <Content Include="Views\Category\AddEdit.cshtml" />
     <Content Include="Views\Category\CategoryList.cshtml" />
+    <Content Include="Views\Order\ManageOrders.cshtml" />
+    <Content Include="Views\Order\MyOrderList.cshtml" />
     <Content Include="Views\Order\ViewOrder.cshtml" />
     <Content Include="Views\Product\AddEdit.cshtml" />
     <Content Include="Views\Product\ProductList.cshtml" />

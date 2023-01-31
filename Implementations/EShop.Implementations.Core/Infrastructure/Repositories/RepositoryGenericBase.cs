@@ -116,7 +116,7 @@ namespace EShop.Implementations.Core.Infrastructure.Repositories
             await DbContext.SaveChangesAsync();
         }
 
-        public void Remove(T entity)
+        public virtual void Remove(T entity)
         {
             entity.IsDeleted = true;
             entity.ModificationDateUtc = DateTime.UtcNow;

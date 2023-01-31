@@ -5,7 +5,6 @@ using EShop.Core.Extensions;
 using EShop.Core.Infrastructure.Repositories;
 using EShop.Dtos.Order.Dtos;
 using EShop.Dtos.Order.Models;
-using EShop.Dtos.Product.Dtos;
 using EShop.Dtos.User.Dtos;
 using EShop.Implementations.Core.Utils;
 
@@ -102,5 +101,67 @@ public class OrderService : IOrderService
             OrderStatus = order.Status,
             ShippingMethod = MappingHelper.Mapper.Map<ShippingMethodDto>(order.ShippingMethod)
         };
+    }
+
+    public async Task<IReadOnlyCollection<OrderDto>> GetUsersOrdersAsync(long userId)
+    {
+        var orders = await _orderRepository.GetAllAsync(x => x.IsDeleted == false && x.UserId == userId);
+
+        if (orders.Count == 0) return Array.Empty<OrderDto>();
+        
+        return orders.OrderByDescending(x => x.InsertDateUtc).Select(order => new OrderDto() {
+            OrderId = order.Id,
+            OrderNumber = order.OrderNumber,
+            PaymentType = order.PaymentType,
+            Address = MappingHelper.Mapper.Map<AddressDto>(order.Address),
+            Items = MappingHelper.Mapper.Map<OrderItemDto[]>(order.OrderProduct),
+            OrderStatus = order.Status,
+            ShippingMethod = MappingHelper.Mapper.Map<ShippingMethodDto>(order.ShippingMethod)
+        }).ToList();
+    }
+
+    public async Task<IReadOnlyCollection<OrderDto>> GetUncompletedOrdersAsync()
+    {
+        var orders = await _orderRepository.GetAllAsync(x => x.IsDeleted == false && x.Status != OrderStatus.Completed);
+
+        if (orders.Count == 0) return Array.Empty<OrderDto>();
+        
+        return orders.OrderByDescending(x => x.InsertDateUtc).Select(order => new OrderDto() {
+            OrderId = order.Id,
+            OrderNumber = order.OrderNumber,
+            PaymentType = order.PaymentType,
+            Address = MappingHelper.Mapper.Map<AddressDto>(order.Address),
+            Items = MappingHelper.Mapper.Map<OrderItemDto[]>(order.OrderProduct),
+            OrderStatus = order.Status,
+            ShippingMethod = MappingHelper.Mapper.Map<ShippingMethodDto>(order.ShippingMethod)
+        }).ToList();
+    }
+
+    public async Task SetNextStatusAsync(long orderId)
+    {
+        var order = await _orderRepository.GetOneAsync(orderId);
+
+        if (order.Status != OrderStatus.Cancelled)
+            order.Status += 1;
+        else order.Status = OrderStatus.New;
+        await _orderRepository.SaveChangesAsync();
+        
+        try {
+            await _mailService.SendOrderStatusChangedMailAsync(order);
+        } catch {
+        }
+    }
+
+    public async Task CancelOrderAsync(long orderId)
+    {
+        var order = await _orderRepository.GetOneAsync(orderId);
+
+        order.Status = OrderStatus.Cancelled;
+        await _orderRepository.SaveChangesAsync();
+        
+        try {
+            await _mailService.SendOrderStatusChangedMailAsync(order);
+        } catch {
+        }
     }
 }
