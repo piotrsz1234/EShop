@@ -142,8 +142,8 @@ namespace EShop.Implementations.Core.Domain
                     Price = x.Price,
                     CategoryName = x.Category.Name,
                     VatValue = x.VatValue,
-                    BigImageId = x.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.MainImage)?.Id,
-                    SmallImageId = x.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.SmallImage)?.Id
+                    BigImageId = x.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.MainImage)?.FileId,
+                    SmallImageId = x.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.SmallImage)?.FileId,
                 }).ToList();
             } catch {
                 return null;
@@ -165,12 +165,45 @@ namespace EShop.Implementations.Core.Domain
                     Price = x.Price,
                     CategoryName = x.Category.Name,
                     VatValue = x.VatValue,
-                    BigImageId = x.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.MainImage)?.Id,
-                    SmallImageId = x.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.SmallImage)?.Id
+                    BigImageId = x.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.MainImage)?.FileId,
+                    SmallImageId = x.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.SmallImage)?.FileId,
                 }).ToList();
             } catch {
                 return null;
             }
+        }
+
+        public async Task<IReadOnlyCollection<ProductDto>> GetAllFromTrashAsync()
+        {
+            var data = await _productRepository.GetAllAsync(x => x.IsDeleted == false && x.IsInTrash == true);
+            
+            return data.Select(x => new ProductDto() {
+                CategoryId = x.CategoryId,
+                Id = x.Id,
+                Description = x.Description,
+                Name = x.Name,
+                Price = x.Price,
+                CategoryName = x.Category.Name,
+                VatValue = x.VatValue,
+                BigImageId = x.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.MainImage)?.FileId,
+                SmallImageId = x.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.SmallImage)?.FileId,
+            }).ToList();
+        }
+
+        public async Task DeleteProductAsync(long productId)
+        {
+            var product = await _productRepository.GetOneAsync(productId);
+            product.IsDeleted = true;
+
+            await _productRepository.SaveChangesAsync();
+        }
+
+        public async Task RemoveProductFromTrashAsync(long productId)
+        {
+            var product = await _productRepository.GetOneAsync(productId);
+            product.IsInTrash = false;
+
+            await _productRepository.SaveChangesAsync();
         }
     }
 }

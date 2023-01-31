@@ -106,6 +106,7 @@ namespace EShop.Implementations.Core.Domain
                     ProductId = x.ProductId,
                     ProductName = x.Product.Name,
                     Count = x.Count,
+                    PricePerOne = x.Product.Price,
                     FileId = x.Product.ProductFiles.FirstOrDefault(x => x.File.Type == FileType.SmallImage)?.FileId,
                 }).ToList();
             } finally{}

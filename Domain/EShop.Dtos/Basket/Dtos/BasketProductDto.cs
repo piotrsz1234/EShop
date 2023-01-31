@@ -6,5 +6,6 @@
         public string ProductName { get; set; }
         public long? FileId { get; set; }
         public int Count { get; set; }
+        public decimal PricePerOne { get; set; }
     }
 }

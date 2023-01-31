@@ -151,7 +151,8 @@ namespace EShop.Web.Controllers
         public ActionResult SignOut()
         {
             _shopSignInManager.Logout();
-
+            Session.Clear();
+            
             return RedirectToAction("SignIn");
         }
 
@@ -168,6 +169,13 @@ namespace EShop.Web.Controllers
         {
             await _userService.AddAddressAsync(model, SessionHelper.LoggedUser.Id);
             return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<ActionResult> UserList()
+        {
+            var users = await _userService.GetAllUsers();
+
+            return View(users);
         }
     }
 }

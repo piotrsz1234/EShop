@@ -13,41 +13,67 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarColor02">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Home
-            <span class="visually-hidden">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/Category/CategoryList">Categories</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/Product/ProductList">Products</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/Basket/">Basket</a>
-        </li>
-        @if (SessionHelper.LoggedUser?.Id > 0) {
-          <li class="nav-item">
-            <a class="nav-link" href="/Account/AddAddress">AddAddress</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/Order/MyOrderList">Your orders</a>
-          </li>
-        }
-      </ul>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">
+                        Home
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Category/CategoryList">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Product/ProductList">Products</a>
+                </li>
+                @if (SessionHelper.LoggedUser?.Id > 0) {
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Account/AddAddress">Add Address</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Basket/">Basket</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Order/MyOrderList">Your orders</a>
+                    </li>
+
+                    if (SessionHelper.LoggedUser.IsAdmin) {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Order/ManageOrders">Manage orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Trash/">Trash</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="d-flex">
+            <ul class="navbar-nav me-auto">
+                @if (SessionHelper.LoggedUser == null) {
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Account/SignIn">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Account/SignUp">Sign Up</a>
+                    </li>
+                } else {
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Account/SignOut">Sign Out</a>
+                    </li>
+                }
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
 <div class="container body-content">
-  @RenderBody()
+    @RenderBody()
 </div>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")

@@ -216,6 +216,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\TrashController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -263,6 +264,7 @@
     <Content Include="Views\Product\AddEdit.cshtml" />
     <Content Include="Views\Product\ProductList.cshtml" />
     <Content Include="Views\Shared\_AddressAddEdit.cshtml" />
+    <Content Include="Views\Trash\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

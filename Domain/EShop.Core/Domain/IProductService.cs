@@ -14,5 +14,8 @@ namespace EShop.Core.Domain
         Task RemoveProductAsync(long productId);
         Task<IReadOnlyCollection<ProductDto>> GetAllFromCategoryAsync(long categoryId, bool isAdmin);
         Task<IReadOnlyCollection<ProductDto>> GetAllProductsAsync(bool isAdmin);
+        Task<IReadOnlyCollection<ProductDto>> GetAllFromTrashAsync();
+        Task DeleteProductAsync(long productId);
+        Task RemoveProductFromTrashAsync(long productId);
     }
 }

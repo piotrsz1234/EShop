@@ -6,6 +6,7 @@
         <th scope="col"></th>
         <th scope="col">Product Name</th>
         <th scope="col">Count</th>
+        <th scope="col">Price per piece</th>
         <th scope="col">Add one more</th>
         <th scope="col">Remove one</th>
         <th scope="col">Remove all</th>
@@ -19,6 +20,7 @@
             </td>
             <td>@item.ProductName</td>
             <td>@item.Count</td>
+            <td>@item.PricePerOne</td>
             <td>
                 <form action="/Basket/AddOneMore" method="post">
                     <input type="hidden" name="productId" value="@item.ProductId"/>

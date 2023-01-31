@@ -1,0 +1,36 @@
+﻿@model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.Product.Dtos.ProductDto>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col"></th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Restore</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src="/File/DownloadFile?fileId=@item.SmallImageId" style="max-width: 60px;"/>
+            </td>
+            <td>@item.Name</td>\
+            <td>@item.Price</td>
+            <td>
+                <form action="/Trash/RemoveProductFromTrash" method="post">
+                    <input type="hidden" name="productId" value="@item.Id"/>
+                    <button class="btn btn-success">Restore</button>
+                </form>
+            </td>
+            <td>
+                <form action="/Trash/Delete" method="post">
+                    <input type="hidden" name="productId" value="@item.Id"/>
+                    <button class="btn btn-secondary">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
