@@ -2,7 +2,7 @@
 @model EShop.Dtos.Order.Dtos.OrderDto
 
 <div class="container">
-    <h1>Profil użytkownika</h1>
+    <h1>Dane zamówienia</h1>
     <div>
         <hr />
         <dl class="row">
@@ -22,13 +22,37 @@
                 Shipping method:
             </dt>
             <dd class="col-sm-10">
-                @Model.ShippingMethod
+                @Model.ShippingMethod.Name
             </dd>
             <dt class="col-sm-2">
-                Address:
+                Address1:
             </dt>
             <dd class="col-sm-10">
-                @Model.Address
+                @Model.Address.Address1
+            </dd>
+            <dt class="col-sm-2">
+                Address2:
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Address.Address2
+            </dd>
+            <dt class="col-sm-2">
+                Address Name:
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Address.Name
+            </dd>
+            <dt class="col-sm-2">
+                City:
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Address.City
+            </dd>
+            <dt class="col-sm-2">
+                ZipCode:
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Address.ZipCode
             </dd>
             <dt class="col-sm-2">
                 Payment type:
@@ -44,9 +68,9 @@
             </dd>
         </dl>
     </div>
-    <div class="row">
-        <a class="btn btn-primary" href="/Order/AddEdit">Add product to order</a>
-    </div>
+    @*<div class="row">
+        <a class="btn btn-primary" href="/Product/ProductList">Add another product</a>
+    </div>*@
 </div>
 <br>
 <br>
