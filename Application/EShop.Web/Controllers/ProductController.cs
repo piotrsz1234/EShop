@@ -119,10 +119,12 @@ namespace EShop.Web.Controllers
             var products = await _productService.GetAllFromCategoryAsync(categoryId);
             return View("ProductList", products);
         }
-        
-        public ActionResult Details(long productid)
+
+        [HttpGet]
+        public async Task<ActionResult> Details(long? productId = null)
         {
-            return View();
+            var product = productId is null ? null : await _productService.GetProductAsync(productId.Value);
+            return View(product);
         }
 
         [HttpGet]

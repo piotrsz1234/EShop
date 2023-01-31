@@ -1,0 +1,36 @@
+﻿@model EShop.Dtos.Product.Dtos.ProductDto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <div class="card">
+        <p class="card-text">Big Picture:</p>
+        <img class="card-img-top" src="/File/DownloadFile?fileId=@Model.BigImageId" alt="Product don't have a big picture.'">
+        <div class="column">
+            <p class="card-text">Small Picture:</p>
+            <img class="card-img-top" src="/File/DownloadFile?fileId=@Model.SmallImageId" alt="Product don't have a small picture.'">
+        </div>
+        <div class="card-header">
+            <h5 class="card-title">@Model.Name</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text">Description: @Model.Description</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Category = @Model.CategoryName</li>
+                <li class="list-group-item">Price = @Model.Price</li>
+                <li class="list-group-item">Vat = @Model.VatValue</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<p>
+    @Html.ActionLink("Back to product list", "ProductList", "Product")
+</p>

@@ -28,7 +28,7 @@
                 </ul>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <a href="#" class="btn btn-primary">See details</a>
+                        <a href="/Product/Details?productId=@product.Id" class="btn btn-primary">See details</a>
                     </li>
                     <li class="list-group-item">
                         @if (SessionHelper.LoggedUser?.IsAdmin == true)
