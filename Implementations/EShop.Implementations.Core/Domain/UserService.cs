@@ -2,6 +2,7 @@
 using EShop.Core.Entities;
 using EShop.Core.Infrastructure.Repositories;
 using EShop.Dtos.Order.Dtos;
+using EShop.Implementations.Core.Infrastructure.Repositories;
 
 namespace EShop.Implementations.Core.Domain
 {
@@ -27,5 +28,25 @@ namespace EShop.Implementations.Core.Domain
                 return null;
             }
         }
+
+        public async Task<bool> EditUserAsync(User user)
+        {
+            try
+            {
+                User entity = await _userRepository.GetOneAsync(user.Id);
+                entity.UserName = user.UserName;
+                entity.Email = user.Email;
+                _userRepository.ForceUpdate(entity);
+
+                await _userRepository.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
     }
 }

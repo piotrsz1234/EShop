@@ -13,6 +13,8 @@ using Login = EShop.Web.Models.Login;
 using EShop.Core.Domain;
 using EShop.Core.Infrastructure.Repositories;
 using System.Collections.Generic;
+using EShop.Dtos.Order.Dtos;
+using EShop.Implementations.Core.Domain;
 
 namespace EShop.Web.Controllers
 {
@@ -121,7 +123,25 @@ namespace EShop.Web.Controllers
         {
             LoggedUserDto user = SessionHelper.LoggedUser;
             User userData = await _userService.GetUserAsync(user.Id);
-            return View();
+            return View(userData);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> EditProfile(long? userId = null)
+        {
+            User user = userId is null ? null : await _userService.GetUserAsync(userId.Value);
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditProfile(User user)
+        {
+            if (await _userService.EditUserAsync(user))
+            {
+                return RedirectToAction("Profile");
+            }
+
+            return View(user);
         }
     }
 }

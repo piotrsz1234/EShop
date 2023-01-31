@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "EditProfile";
+}
+
+<h2>EditProfile</h2>
+
+@using (Html.BeginForm("EditProfile", "Account", FormMethod.Post))
+{
+    if (Model?.Id > 0)
+    {
+        <input type="hidden" name="Id" value="@Model.Id" />
+    }
+
+    <div class="row">
+        <div class="col-sm-12">
+            <label class="form-label">UserName</label>
+            <input class="form-control" name="UserName" value="@(Model != null ? Model.UserName : string.Empty)" required />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <label class="form-label">Email</label>
+            <input class="form-control" name="Email" value="@(Model != null ? Model.Email : string.Empty)" required />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-primary">Save</button>
+        </div>
+    </div>
+}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<p>
+    @Html.ActionLink("Back to profile", "Profile", "Account")
+</p>

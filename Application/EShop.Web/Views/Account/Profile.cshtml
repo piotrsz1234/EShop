@@ -3,5 +3,30 @@
     ViewBag.Title = "Profile";
 }
 
-<h2>Profile</h2>
-
+<div class="container">
+    <h1>Profil użytkownika</h1>
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                UserName:
+            </dt>
+            <dd class="col-sm-10">
+                @Model.UserName
+            </dd>
+            <dt class="col-sm-2">
+                Email:
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Email
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a href="/Account/EditProfile?userId=@Model.Id" class="btn btn-primary">Edit profile</a>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
