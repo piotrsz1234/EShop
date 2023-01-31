@@ -1,1 +1,88 @@
-﻿@model EShop.Dtos.Order.Dtos.OrderDto
+﻿@using EShop.Web.Helpers
+@model EShop.Dtos.Order.Dtos.OrderDto
+
+<div class="container">
+    <h1>Profil użytkownika</h1>
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                OrderNumber:
+            </dt>
+            <dd class="col-sm-10">
+                @Model.OrderNumber
+            </dd>
+            <dt class="col-sm-2">
+                OrderStatus:
+            </dt>
+            <dd class="col-sm-10">
+                @Model.OrderStatus
+            </dd>
+            <dt class="col-sm-2">
+                Shipping method:
+            </dt>
+            <dd class="col-sm-10">
+                @Model.ShippingMethod
+            </dd>
+            <dt class="col-sm-2">
+                Address:
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Address
+            </dd>
+            <dt class="col-sm-2">
+                Payment type:
+            </dt>
+            <dd class="col-sm-10">
+                @Model.PaymentType
+            </dd>
+            <dt class="col-sm-2">
+                Number of products in order:
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Items.Count
+            </dd>
+        </dl>
+    </div>
+    <div class="row">
+        <a class="btn btn-primary" href="/Order/AddEdit">Add product to order</a>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+@{ int i = 0; }
+@foreach (var item in Model.Items)
+{
+    if (i > 0 && i % 4 == 0)
+    {
+        @:<div class="row">
+        }
+
+        <div class="column">
+            <div class="card">
+                <img class="card-img-top" src="/File/DownloadFile?fileId=@item.Product.SmallImageId" alt="Product don't have a picture.">
+                <div class="card-header">
+                    <h5 class="card-title">@item.Product.Name</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Description: @item.Product.Description</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Category = @item.Product.CategoryName</li>
+                        <li class="list-group-item">Price = @item.Product.Price</li>
+                        <li class="list-group-item">Vat = @item.Product.VatValue</li>
+                    </ul>
+                </div>
+                <div class="card-header">
+                    <h5 class="card-title">@item.Count</h5>
+                </div>
+            </div>
+        </div>
+
+        if (i > 0 && i % 4 == 0)
+        {
+        @: </div>
+        i++;
+    }
+}
