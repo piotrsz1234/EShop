@@ -115,12 +115,12 @@ namespace EShop.Implementations.Core.Domain
             await _productRepository.SaveChangesAsync();
         }
 
-        public async Task<IReadOnlyCollection<ProductDto>> GetAllFromCategoryAsync(long categoryId)
+        public async Task<IReadOnlyCollection<ProductDto>> GetAllFromCategoryAsync(long categoryId, bool isAdmin)
         {
             try {
                 var categories = await _categoryRepository.GetAllWithDependentAsync(categoryId);
 
-                var data = await _productRepository.GetAllAsync(x => x.IsHidden == false
+                var data = await _productRepository.GetAllAsync(x => (isAdmin || x.IsHidden == false)
                                                                      && x.IsDeleted == false
                                                                      && x.IsInTrash == false
                                                                      && categories.Contains(x.CategoryId));
@@ -141,10 +141,10 @@ namespace EShop.Implementations.Core.Domain
             }
         }
 
-        public async Task<IReadOnlyCollection<ProductDto>> GetAllProductsAsync()
+        public async Task<IReadOnlyCollection<ProductDto>> GetAllProductsAsync(bool isAdmin)
         {
             try {
-                var data = await _productRepository.GetAllAsync(x => x.IsHidden == false
+                var data = await _productRepository.GetAllAsync(x => (isAdmin || x.IsHidden == false)
                                                                      && x.IsDeleted == false
                                                                      && x.IsInTrash == false);
 

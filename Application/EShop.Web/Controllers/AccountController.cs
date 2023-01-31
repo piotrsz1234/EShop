@@ -123,5 +123,13 @@ namespace EShop.Web.Controllers
             User userData = await _userService.GetUserAsync(user.Id);
             return View();
         }
+
+        [Authorize]
+        public ActionResult SignOut()
+        {
+            _shopSignInManager.Logout();
+
+            return RedirectToAction("SignIn");
+        }
     }
 }

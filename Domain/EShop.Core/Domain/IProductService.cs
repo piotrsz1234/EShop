@@ -12,7 +12,7 @@ namespace EShop.Core.Domain
         Task<AddEditProductResult> AddEditProductAsync(AddEditProductModel model);
         //Task<bool> RemoveProductAsync(long id);
         Task RemoveProductAsync(long productId);
-        Task<IReadOnlyCollection<ProductDto>> GetAllFromCategoryAsync(long categoryId);
-        Task<IReadOnlyCollection<ProductDto>> GetAllProductsAsync();
+        Task<IReadOnlyCollection<ProductDto>> GetAllFromCategoryAsync(long categoryId, bool isAdmin);
+        Task<IReadOnlyCollection<ProductDto>> GetAllProductsAsync(bool isAdmin);
     }
 }

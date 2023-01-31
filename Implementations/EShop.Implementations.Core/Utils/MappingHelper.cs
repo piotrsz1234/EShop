@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using EShop.Core.Common.Enums;
 using EShop.Core.Entities;
+using EShop.Dtos.Product.Dtos;
 using EShop.Dtos.Product.Models;
 
 namespace EShop.Implementations.Core.Utils
@@ -22,6 +24,10 @@ namespace EShop.Implementations.Core.Utils
             return new MapperConfiguration(cfg => {
                 cfg.CreateMap<AddEditProductModel, Product>()
                     .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+                cfg.CreateMap<Product, ProductDto>()
+                    .ForMember(dest => dest.BigImageId, opt => opt.MapFrom(src => src.ProductFiles.First(x => x.File.Type == FileType.MainImage).FileId))
+                    .ForMember(dest => dest.SmallImageId, opt => opt.MapFrom(src => src.ProductFiles.First(x => x.File.Type == FileType.SmallImage).FileId));
             });
         }
     }
