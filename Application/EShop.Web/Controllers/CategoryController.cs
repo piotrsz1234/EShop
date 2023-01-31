@@ -1,6 +1,7 @@
 ﻿using EShop.Core.Domain;
 using EShop.Dtos.Order.Dtos;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -42,10 +43,14 @@ namespace EShop.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Remove(long categoryId)
         {
-            try {
+            Debug.WriteLine("HTTPPOST CONTROLLER WORK");
+            try
+            {
                 await _categoryService.RemoveCategoryAsync(categoryId);
-            } finally {
-                
+            }
+            finally
+            {
+
             }
             return RedirectToAction("CategoryList");
         }
