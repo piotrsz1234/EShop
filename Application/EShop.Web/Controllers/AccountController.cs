@@ -30,12 +30,6 @@ namespace EShop.Web.Controllers
             _userService = userService;
         }
 
-        // GET: Account
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult SignUp()
         {
             //TO DO
@@ -137,6 +131,7 @@ namespace EShop.Web.Controllers
         }
 
         [HttpPost]
+        [EnforceUser]
         public async Task<ActionResult> EditProfile(User user)
         {
             if (await _userService.EditUserAsync(user))
@@ -158,6 +153,7 @@ namespace EShop.Web.Controllers
 
         [HttpGet]
         [Authorize]
+        [EnforceUser]
         public ActionResult AddAddress()
         {
             return View("_AddressAddEdit");
@@ -165,17 +161,36 @@ namespace EShop.Web.Controllers
 
         [HttpPost]
         [Authorize]
+        [EnforceUser]
         public async Task<ActionResult> SaveAddress(AddAddressModel model)
         {
             await _userService.AddAddressAsync(model, SessionHelper.LoggedUser.Id);
             return RedirectToAction("Index", "Home");
         }
 
+        [EnforceUser]
+        [Authorize]
         public async Task<ActionResult> UserList()
         {
             var users = await _userService.GetAllUsers();
 
             return View(users);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteUser(long userId)
+        {
+            await _userService.DeleteUser(userId);
+
+            return RedirectToAction("UserList");
+        }
+        
+        [HttpPost]
+        public async Task<ActionResult> ChangeRole(long userId)
+        {
+            await _userService.ChangeUserRole(userId);
+
+            return RedirectToAction("UserList");
         }
     }
 }

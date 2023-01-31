@@ -1,0 +1,37 @@
+﻿@using EShop.Web.Helpers
+@model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.User.Dtos.UserDto>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Role</th>
+        <th scope="col">Change role</th>
+        <th scope="col">Remove</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>@item.Name</td>
+            <td>@(item.IsAdmin ? "Admin" : "Normal user")</td>
+            <td>
+                @if (item.Id != SessionHelper.LoggedUser.Id) {
+                    <form action="/Account/ChangeRole" method="post">
+                        <input type="hidden" name="userId" value="@item.Id"/>
+                        <button class="btn btn-primary">Change role</button>
+                    </form>
+                }
+            </td>
+            <td>
+                @if (item.Id != SessionHelper.LoggedUser.Id) {
+                    <form action="/Account/DeleteUser" method="post">
+                        <input type="hidden" name="userId" value="@item.Id"/>
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

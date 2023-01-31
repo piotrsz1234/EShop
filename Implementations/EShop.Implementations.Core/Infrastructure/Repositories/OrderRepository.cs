@@ -18,4 +18,14 @@ internal class OrderRepository : RepositoryGenericBase<Order>, IOrderRepository
 
         return result?.OrderNumber;
     }
+
+    public void Reload(Order order)
+    {
+        DbContext.Entry(order).Reload();
+    }
+
+    public async Task<Order> GetForMail(long id)
+    {
+        return await DbContext.Order.Include(x => x.User).Include(x => x.OrderProduct).Include("OrderProduct.Product").FirstOrDefaultAsync(x => x.Id == id);
+    }
 }

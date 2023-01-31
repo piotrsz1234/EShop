@@ -73,7 +73,7 @@ namespace EShop.Web.Controllers
                 return RedirectToAction("ViewOrder", "Order", new { orderId = result.Value });
             }
 
-            return View();
+            return View("Index");
         }
     }
 }

@@ -305,6 +305,7 @@
     <Content Include="Scripts\libs\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\libs\modernizr-2.8.3.js" />
     <Content Include="tsconfig.json" />
+    <Content Include="Views\Account\UserList.cshtml" />
     <Content Include="Views\Basket\CreateOrder.cshtml" />
     <Content Include="Views\Basket\Index.cshtml" />
     <Content Include="Views\Category\AddEdit.cshtml" />

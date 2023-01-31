@@ -50,10 +50,14 @@ public class OrderService : IOrderService
                 }).ToHashSet()
             };
 
+            basket.IsDeleted = true;
+            
             await _orderRepository.AddAsync(order);
 
             await _orderRepository.SaveChangesAsync();
 
+            order = await _orderRepository.GetForMail(order.Id);
+            
             try {
                 await _mailService.SendOrderCreatedMailAsync(order);
             } catch {
@@ -72,7 +76,7 @@ public class OrderService : IOrderService
         order.Status = model.Status;
 
         await _orderRepository.SaveChangesAsync();
-
+        order = await _orderRepository.GetOneAsync(order.Id);
         await _mailService.SendOrderStatusChangedMailAsync(order);
     }
 

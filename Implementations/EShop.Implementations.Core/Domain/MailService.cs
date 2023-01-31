@@ -48,10 +48,13 @@ namespace EShop.Implementations.Core.Domain
         private async Task<bool> SendEmailAsync(string recipient, string subject, string mailBody)
         {
             var message = new MailMessage(SenderMail, recipient, subject, mailBody);
-
+            message.IsBodyHtml = true;
             using (var client = new SmtpClient(MailServer)) {
+                client.Timeout = 10000;
+                client.UseDefaultCredentials = false;
                 client.Credentials = new NetworkCredential(SenderMail, SenderPassword);
-
+                client.EnableSsl = true;
+                
                 try {
                     await client.SendMailAsync(message);
                 } catch (Exception) {
