@@ -10,16 +10,21 @@ using EShop.Dtos.User.Dtos;
 using EShop.Web.Helpers;
 using Microsoft.AspNet.Identity.Owin;
 using Login = EShop.Web.Models.Login;
+using EShop.Core.Domain;
+using EShop.Core.Infrastructure.Repositories;
+using System.Collections.Generic;
 
 namespace EShop.Web.Controllers
 {
     public class AccountController : Controller
     {
         private readonly ShopSignInManager _shopSignInManager;
+        private readonly IUserService _userService;
 
-        public AccountController(ShopSignInManager shopSignInManager)
+        public AccountController(ShopSignInManager shopSignInManager, IUserService userService)
         {
             _shopSignInManager = shopSignInManager;
+            _userService = userService;
         }
 
         // GET: Account
@@ -108,6 +113,14 @@ namespace EShop.Web.Controllers
                 ViewBag.Msg = "Dane nieprawidłowe";
             }
 
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Profile()
+        {
+            LoggedUserDto user = SessionHelper.LoggedUser;
+            User userData = await _userService.GetUserAsync(user.Id);
             return View();
         }
     }
