@@ -49,6 +49,7 @@ namespace EShop.Web.Controllers
                 IsHidden = model.HiddenText?.ToLower().Trim() == "on",
                 CategoryId = model.CategoryId,
                 Description = model.Description,
+                VatValue = model.VAT,
                 Price = decimal.Parse((model.Price).Replace(".", ",")),
                 Id = model.OldVersionProductId
             };
@@ -103,11 +104,6 @@ namespace EShop.Web.Controllers
             }
 
             return View();
-        }
-
-        public ActionResult AddEditAddress()
-        {
-            return View("_AddressAddEdit");
         }
 
         public async Task<ActionResult> ProductList()

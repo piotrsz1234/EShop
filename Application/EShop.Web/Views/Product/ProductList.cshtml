@@ -1,11 +1,18 @@
 ﻿@using EShop.Web.Helpers
 @model System.Collections.Generic.IReadOnlyCollection<EShop.Dtos.Product.Dtos.ProductDto>
+<div class="row">
+    @if (SessionHelper.LoggedUser?.IsAdmin == true) {
+        <div class="col-2">
+            <a class="btn btn-primary" href="/Product/AddEdit">Add product</a>
+        </div>
+    }
 
-@if (SessionHelper.LoggedUser?.IsAdmin == true) {
-    <div class="row">
-        <a class="btn btn-primary" href="/Product/AddEdit">Add product</a>
+    <div class="col-1">
+        @if (Request.Params["categoryId"]?.Length > 0) {
+            <a href="/File/CategoryPricing?categoryId=@Request.Params["categoryId"]" class="btn btn-secondary">Pricing</a>
+        }
     </div>
-}
+</div>
 
 @{ int i = 0; }
 @foreach (var product in Model) {
@@ -24,22 +31,20 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Category = @product.CategoryName</li>
                     <li class="list-group-item">Price = @product.Price</li>
-                    <li class="list-group-item">Vat = @product.VatValue</li>
+                    <li class="list-group-item">Vat = @product.VatValue%</li>
                 </ul>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <a href="/Product/Details?productId=@product.Id" class="btn btn-primary">See details</a>
                     </li>
                     <li class="list-group-item">
-                        @if (SessionHelper.LoggedUser?.IsAdmin == true)
-                        {
+                        @if (SessionHelper.LoggedUser?.IsAdmin == true) {
                             <a href="/Product/AddEdit?productId=@product.Id" class="btn btn-primary">Edit</a>
                             <a href="/Product/Remove?productId=@product.Id" class="btn btn-danger">Remove</a>
                         }
                     </li>
                     <li class="list-group-item">
-                        @if (SessionHelper.LoggedUser != null)
-                        {
+                        @if (SessionHelper.LoggedUser != null) {
                             <button class="btn btn-secondary" onclick="layout.addToBasket(@product.Id)">Add to basket</button>
                         }
                     </li>
