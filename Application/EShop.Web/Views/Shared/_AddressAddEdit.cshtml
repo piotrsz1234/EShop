@@ -1,27 +1,27 @@
 ﻿<div class="row">
     <div class="col-sm-8 col-sm-push-2">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("SaveAddress", "Account", FormMethod.Post))
         {
             <div class="row">
                 <div class="col-sm-12">
                     <label class="form-label">Address</label>
-                    <input class="form-control" required/>
+                    <input class="form-control" name="Address1" required/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
                     <label class="form-label">Address2</label>
-                    <input class="form-control" required/>
+                    <input class="form-control" name="Address2"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-7">
                     <label class="form-label">City</label>
-                    <input class="form-control" required/>
+                    <input class="form-control" name="City" required/>
                 </div>
                 <div class="col-sm-5">
                     <label class="form-label">Zip code</label>
-                    <input class="form-control" required/>
+                    <input class="form-control" name="ZipCode" required/>
                 </div>
             </div>
             <div class="row">

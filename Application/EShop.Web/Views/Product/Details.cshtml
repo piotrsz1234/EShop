@@ -25,12 +25,25 @@
         </div>
     </div>
 </div>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+<div class="row">
+    <div class="col-12">
+        @foreach (var file in Model.AllFiles) {
+            <div class="row">
+                <div class="col-3">@file.FileName</div>
+                <div class="col">
+                    <a href="/File/DownloadFile?fileId=@file.Id" class="btn btn-secondary">Download</a>
+                </div>
+                <div class="col">@file.Description</div>
+            </div>
+        }
+    </div>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 <p>
     @Html.ActionLink("Back to product list", "ProductList", "Product")
 </p>

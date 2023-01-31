@@ -10,6 +10,8 @@ namespace EShop.Web.Models
         public string[] FileNames { get; set; }
         [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public string Price { get; set; }
+
+        public string HiddenText { get; set; }
         public long? OldVersionProductId { get; set; }
     }
 }

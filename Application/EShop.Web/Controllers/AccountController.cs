@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Login = EShop.Web.Models.Login;
 using EShop.Core.Domain;
 using EShop.Core.Infrastructure.Repositories;
+using EShop.Dtos.User.Models;
 using System.Collections.Generic;
 using EShop.Dtos.Order.Dtos;
 using EShop.Implementations.Core.Domain;
@@ -52,6 +53,8 @@ namespace EShop.Web.Controllers
                     PhoneNumber = registration.PhoneNumber,
                     InsertDateUtc = DateTime.UtcNow,
                     ModificationDateUtc = DateTime.UtcNow,
+                    FirstName = registration.Name,
+                    LastName = registration.Surname,
                 };
 
                 await _shopSignInManager.SignUp(user);
@@ -150,6 +153,21 @@ namespace EShop.Web.Controllers
             _shopSignInManager.Logout();
 
             return RedirectToAction("SignIn");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult AddAddress()
+        {
+            return View("_AddressAddEdit");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult> SaveAddress(AddAddressModel model)
+        {
+            await _userService.AddAddressAsync(model, SessionHelper.LoggedUser.Id);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

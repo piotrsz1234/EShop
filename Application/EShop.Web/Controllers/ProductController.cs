@@ -46,6 +46,7 @@ namespace EShop.Web.Controllers
             {
                 Files = new List<long>(),
                 Name = model.Name,
+                IsHidden = model.HiddenText?.ToLower().Trim() == "on",
                 CategoryId = model.CategoryId,
                 Description = model.Description,
                 Price = decimal.Parse((model.Price).Replace(".", ",")),
@@ -53,16 +54,16 @@ namespace EShop.Web.Controllers
             };
             Debug.WriteLine("OldVersion: " + model.OldVersionProductId.ToString());
 
-            if (smallImage.ContentLength > 0)
+            if (smallImage != null && smallImage.ContentLength > 0)
             {
                 coreModel.Files.Add(await _fileService.UploadFileAsync(await smallImage.InputStream.ToArrayAsync(),
                     smallImage.FileName,
                     string.Empty, FileType.SmallImage));
             }
 
-            if (bigImage.ContentLength > 0)
+            if (bigImage != null && bigImage.ContentLength > 0)
             {
-                if (smallImage.ContentLength == 0)
+                if (smallImage != null && smallImage.ContentLength == 0)
                 {
                     var files = await _fileService.UploadBigImageAndResizeAsync(
                         await bigImage.InputStream.ToArrayAsync(),

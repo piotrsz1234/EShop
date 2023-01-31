@@ -16,6 +16,8 @@ namespace EShop.Core.Entities
         public DateTime ModificationDateUtc { get; set; }
         public bool IsNewsletterReceiver { get; set; }
         public decimal UserDiscount { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
