@@ -3,12 +3,9 @@
 
 <div class="row">
     <div class="col-sm-8 col-sm-push-2">
-        @using (Html.BeginForm("AddEdit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-
-            if (Model.Item1 != null && Model.Item1?.Id > 0)
-            {
-                <input type="hidden" name="OldVersionProductId" value="@Model.Item1.Id" />
+        @using (Html.BeginForm("AddEdit", "Product", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+            if (Model.Item1 != null && Model.Item1?.Id > 0) {
+                <input type="hidden" name="OldVersionProductId" value="@Model.Item1.Id"/>
             }
 
             if (Model.Item1 == null || Model.Item1.IsHidden) {
@@ -21,19 +18,18 @@
                     </div>
                 </div>
             }
-            
+
             <div class="row">
                 <div class="col-sm-12">
                     <label class="form-label">Name</label>
-                    <input class="form-control" name="Name" required value="@(Model.Item1 != null ? Model.Item1.Name : string.Empty)" />
+                    <input class="form-control" name="Name" required value="@(Model.Item1 != null ? Model.Item1.Name : string.Empty)"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
                     <label class="form-label">Category</label>
-                    <select class="form-control" name="CategoryId" required>
-                        @foreach (var item in Model.Item2)
-                        {
+                    <select class="form-control" name="CategoryId" required value="@(Model.Item1 != null ? Model.Item1.CategoryId : 0)">
+                        @foreach (var item in Model.Item2) {
                             <option value="@item.Id">
                                 @item.Name
                             </option>
@@ -41,12 +37,22 @@
                     </select>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-sm-12">
+                    <label class="form-label">Category</label>
+                    <select class="form-control" name="VAT" required value="@(Model.Item1 != null ? Model.Item1.VatValue : 23)">
+                        <option value="23">23%</option>
+                        <option value="8">8%</option>
+                        <option value="5">5%</option>
+                        <option value="0">0%</option>
+                    </select>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-12">
                     <label class="form-label" for="Price">Price</label>
                     <div class="controls">
-                        <input class="form-control" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price" name="Price" type="text" value=@(Model.Item1 != null ? Model.Item1.Price.ToString() : "0.99") />
+                        <input class="form-control" data-val="true" data-val-number="The field Price must be a number." data-val-required="The Price field is required." id="Price" name="Price" type="text" value=@(Model.Item1 != null ? Model.Item1.Price.ToString() : "0.99")/>
                         <span class="field-validation-valid help-inline" data-valmsg-for="Price" data-valmsg-replace="true"></span>
                     </div>
                 </div>
@@ -55,7 +61,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <label class="form-label">Description</label>
-                    <input class="form-control" name="Description" required value="@(Model.Item1 != null ? Model.Item1.Description : string.Empty)" />
+                    <input class="form-control" name="Description" required value="@(Model.Item1 != null ? Model.Item1.Description : string.Empty)"/>
                 </div>
             </div>
             <div class="row">
@@ -83,7 +89,7 @@
                             </div>
                             <div class="col-6">
                                 <label class="form-label">File Description</label>
-                                <input class="form-control" name="FileNames[{0}]" required />
+                                <input class="form-control" name="FileNames[{0}]" required/>
                             </div>
                         </div>
                     </template>
@@ -102,12 +108,12 @@
         }
     </div>
 </div>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 <p>
     @Html.ActionLink("Back to product list", "ProductList", "Product")
 </p>

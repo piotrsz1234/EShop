@@ -23,6 +23,7 @@ namespace EShop.Implementations.Core.Utils
         {
             return new MapperConfiguration(cfg => {
                 cfg.CreateMap<AddEditProductModel, Product>()
+                    .ForMember(dest => dest.VatValue, opt => opt.MapFrom(src => src.VatValue))
                     .ForMember(dest => dest.Id, opt => opt.Ignore());
 
                 cfg.CreateMap<Product, ProductDto>()

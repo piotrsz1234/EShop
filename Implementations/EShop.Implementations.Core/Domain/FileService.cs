@@ -91,7 +91,8 @@ namespace EShop.Implementations.Core.Domain
         {
             var categoryIds = await _categoryRepository.GetAllWithDependentAsync(categoryId);
 
-            var products = await _productRepository.GetAllAsync(x => x.IsDeleted == false && categoryIds.Contains(x.Id),
+            var products = await _productRepository.GetAllAsync(x => x.IsDeleted == false && x.IsInTrash == false 
+                                                                                          && x.IsHidden == false && categoryIds.Contains(x.CategoryId),
                  x => x.Category);
 
             using var stream = new MemoryStream();
